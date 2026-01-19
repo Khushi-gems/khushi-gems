@@ -1,0 +1,340 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero1",
+      "description": "Elegant jewelry on a model",
+      "imageUrl": "https://images.unsplash.com/photo-1590166223826-12dee1677420?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxqZXdlbHJ5JTIwbW9kZWx8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jewelry model"
+    },
+    {
+      "id": "hero2",
+      "description": "Close-up of a necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1744894420771-a7f512cce213?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxuZWNrbGFjZSUyMGNsb3NldXB8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "necklace closeup"
+    },
+    {
+      "id": "hero3",
+      "description": "Woman wearing traditional earrings",
+      "imageUrl": "https://images.unsplash.com/photo-1714733831162-0a6e849141be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGVhcnJpbmdzfGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman earrings"
+    },
+    {
+      "id": "cat1",
+      "description": "Necklaces",
+      "imageUrl": "https://images.unsplash.com/photo-1611012756377-05e2e4269fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxuZWNrbGFjZXMlMjBqZXdlbHJ5fGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "necklaces jewelry"
+    },
+    {
+      "id": "cat2",
+      "description": "Earrings",
+      "imageUrl": "https://images.unsplash.com/photo-1751552147802-fda131627843?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxlYXJyaW5ncyUyMGpld2Vscnl8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "earrings jewelry"
+    },
+    {
+      "id": "cat3",
+      "description": "Pendants",
+      "imageUrl": "https://images.unsplash.com/photo-1664178266066-e37e0d25e6a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZW5kYW50JTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pendant jewelry"
+    },
+    {
+      "id": "cat4",
+      "description": "Rings",
+      "imageUrl": "https://images.unsplash.com/photo-1654521883301-070279dd0ae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyaW5ncyUyMGpld2Vscnl8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "rings jewelry"
+    },
+    {
+      "id": "cat5",
+      "description": "Bracelets",
+      "imageUrl": "https://images.unsplash.com/photo-1766560360108-954ec9b4b88e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxicmFjZWxldCUyMGpld2Vscnl8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bracelet jewelry"
+    },
+    {
+      "id": "cat6",
+      "description": "Apparel",
+      "imageUrl": "https://images.unsplash.com/photo-1735553816725-76d4fa5a374e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYXNoaW9uJTIwYXBwYXJlbHxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion apparel"
+    },
+    {
+      "id": "cat7",
+      "description": "Chokers",
+      "imageUrl": "https://images.unsplash.com/photo-1762843354010-c07e2b16ec92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjaG9rZXIlMjBuZWNrbGFjZXxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "choker necklace"
+    },
+    {
+      "id": "cat8",
+      "description": "Gift Cards",
+      "imageUrl": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxnaWZ0JTIwY2FyZHxlbnwwfHx8fDE3NjcwMjg4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gift card"
+    },
+    {
+      "id": "cat9",
+      "description": "Accessories",
+      "imageUrl": "https://images.unsplash.com/photo-1612902457652-33aff0a641fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYXNoaW9uJTIwYWNjZXNzb3JpZXN8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion accessories"
+    },
+    {
+      "id": "cat10",
+      "description": "Nosepin",
+      "imageUrl": "https://images.unsplash.com/photo-1691370298583-4364b396e1e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxub3NlcGluJTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcxODY1NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nosepin jewelry"
+    },
+    {
+      "id": "cat11",
+      "description": "Maang Tikka",
+      "imageUrl": "https://images.unsplash.com/photo-1691370298583-4364b396e1e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYWFuZ3Rpa2thJTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcxODY1NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "maangtikka jewelry"
+    },
+    {
+      "id": "cat12",
+      "description": "Diamond Jewellery",
+      "imageUrl": "https://images.unsplash.com/photo-1600143674013-a690b5d25104?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkaWFtb25kJTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcxODY1NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond jewelry"
+    },
+    {
+      "id": "prod1",
+      "description": "Chandbali Earrings",
+      "imageUrl": "https://images.unsplash.com/photo-1751552147823-e2a844bce504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZWFycmluZ3MlMjBqZXdlbHJ5fGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "earrings jewelry"
+    },
+    {
+      "id": "prod2",
+      "description": "Kundan Necklace Set",
+      "imageUrl": "https://images.unsplash.com/photo-1683099869102-bcf8791eb0e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxuZWNrbGFjZSUyMGpld2Vscnl8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "necklace jewelry"
+    },
+    {
+      "id": "prod3",
+      "description": "Minimalist Gold Ring",
+      "imageUrl": "https://images.unsplash.com/photo-1631982690223-8aa4be0a2497?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnb2xkJTIwcmluZ3xlbnwwfHx8fDE3NjY5OTIyNDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold ring"
+    },
+    {
+      "id": "prod4",
+      "description": "Silver Jhumkas",
+      "imageUrl": "https://images.unsplash.com/photo-1575088559236-04dda0633d31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaWx2ZXIlMjBqaHVta2FzfGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "silver jhumkas"
+    },
+    {
+      "id": "prod5",
+      "description": "Pearl Choker",
+      "imageUrl": "https://images.unsplash.com/photo-1684688768576-d9357f32e257?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZWFybCUyMGNob2tlcnxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pearl choker"
+    },
+    {
+      "id": "prod6",
+      "description": "Emerald Pendant",
+      "imageUrl": "https://images.unsplash.com/photo-1689777239519-50c251b70438?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxlbWVyYWxkJTIwcGVuZGFudHxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "emerald pendant"
+    },
+    {
+      "id": "prod7",
+      "description": "Ruby Bracelet",
+      "imageUrl": "https://images.unsplash.com/photo-1766560360212-e151abcd2855?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxydWJ5JTIwYnJhY2VsZXR8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ruby bracelet"
+    },
+    {
+      "id": "prod8",
+      "description": "Sapphire Studs",
+      "imageUrl": "https://images.unsplash.com/photo-1704549561322-a09d2c3d3548?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzYXBwaGlyZSUyMHN0dWRzfGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sapphire studs"
+    },
+    {
+      "id": "coll1",
+      "description": "Vasant Collection",
+      "imageUrl": "https://images.unsplash.com/photo-1588959903637-efac1662e68c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzcHJpbmclMjBjb2xsZWN0aW9ufGVufDB8fHx8MTc2NzA5NzQ1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spring collection"
+    },
+    {
+      "id": "coll2",
+      "description": "Noor Collection",
+      "imageUrl": "https://images.unsplash.com/photo-1748023593753-4949fdc19045?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxsaWdodCUyMGpld2Vscnl8ZW58MHx8fHwxNzY3MDk3NDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "light jewelry"
+    },
+    {
+      "id": "coll3",
+      "description": "Mehr Collection",
+      "imageUrl": "https://images.unsplash.com/photo-1606038166690-581c8bcc0897?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YnJpZGFsJTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bridal jewelry"
+    },
+    {
+      "id": "coll4",
+      "description": "Amara Collection",
+      "imageUrl": "https://images.unsplash.com/photo-1766717698601-fbc56f142c31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxldGVybmFsJTIwamV3ZWxyeXxlbnwwfHx8fDE3NjcwOTc0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "eternal jewelry"
+    },
+    {
+      "id": "coll5",
+      "description": "The Royal Affair",
+      "imageUrl": "https://images.unsplash.com/photo-1720093601709-66ce9c0068a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxyb3lhbCUyMGpld2Vscnl8ZW58MHx8fHwxNzY3ODg5MDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "royal jewelry"
+    },
+    {
+      "id": "coll6",
+      "description": "Jaipur By Night",
+      "imageUrl": "https://images.unsplash.com/photo-1741358706805-a5935a200a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxqYWlwdXIlMjBuaWdodHxlbnwwfHx8fDE3Njc4ODkwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jaipur night"
+    },
+    {
+      "id": "coll7",
+      "description": "Desert Bloom",
+      "imageUrl": "https://images.unsplash.com/photo-1555866272-0f553f33c408?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkZXNlcnQlMjBmbG93ZXJ8ZW58MHx8fHwxNzY3ODg5MDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "desert flower"
+    },
+    {
+      "id": "coll8",
+      "description": "Monsoon Magic",
+      "imageUrl": "https://images.unsplash.com/photo-1624969860144-5d817c49dc48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtb25zb29uJTIwcmFpbnxlbnwwfHx8fDE3Njc4ODkwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "monsoon rain"
+    },
+    {
+      "id": "insta1",
+      "description": "Jewelry flatlay",
+      "imageUrl": "https://images.unsplash.com/photo-1553926297-57bb350c4f08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxqZXdlbHJ5JTIwZmxhdGxheXxlbnwwfHx8fDE3NjcxODYwNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jewelry flatlay"
+    },
+    {
+      "id": "insta2",
+      "description": "Model wearing earrings",
+      "imageUrl": "https://images.unsplash.com/photo-1729538269650-8ff8794ee567?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlYXJyaW5ncyUyMG1vZGVsfGVufDB8fHx8MTc2NzE4NjA2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "earrings model"
+    },
+    {
+      "id": "insta3",
+      "description": "Ring stack",
+      "imageUrl": "https://images.unsplash.com/photo-1629583191932-ea92671d6feb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxyaW5nJTIwc3RhY2t8ZW58MHx8fHwxNzY3MTg2MDY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ring stack"
+    },
+    {
+      "id": "insta4",
+      "description": "Necklace detail",
+      "imageUrl": "https://images.unsplash.com/photo-1624634355708-787964b199ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxuZWNrbGFjZSUyMGRldGFpbHxlbnwwfHx8fDE3NjcxODYwNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "necklace detail"
+    },
+    {
+      "id": "insta5",
+      "description": "Bracelet lifestyle",
+      "imageUrl": "https://images.unsplash.com/photo-1657879186155-7d74916283fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicmFjZWxldCUyMGxpZmVzdHlsZXxlbnwwfHx8fDE3NjcxODYwNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bracelet lifestyle"
+    },
+    {
+      "id": "insta6",
+      "description": "Jewelry in a box",
+      "imageUrl": "https://images.unsplash.com/photo-1528797664208-e5a8c0b98881?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8amV3ZWxyeSUyMGJveHxlbnwwfHx8fDE3NjcxODYwNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jewelry box"
+    },
+    {
+      "id": "prod9",
+      "description": "Peacock Kundan Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1742137189543-38412344c2ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxrdW5kYW4lMjBuZWNrbGFjZXxlbnwwfHx8fDE3Njc4OTYxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kundan necklace"
+    },
+    {
+      "id": "prod10",
+      "description": "Temple Coin Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1758745369774-3753d2d60b81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0ZW1wbGUlMjBuZWNrbGFjZXxlbnwwfHx8fDE3Njc4OTYxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "temple necklace"
+    },
+    {
+      "id": "prod11",
+      "description": "Meenakari Floral Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1764348638962-e814be668e71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmbG9yYWwlMjBuZWNrbGFjZXxlbnwwfHx8fDE3Njc4OTYxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "floral necklace"
+    },
+    {
+      "id": "prod12",
+      "description": "Polki Diamond Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1598560917505-59a3ad559071?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkaWFtb25kJTIwbmVja2xhY2V8ZW58MHx8fHwxNzY3ODc1NTU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond necklace"
+    },
+    {
+      "id": "prod13",
+      "description": "Layered Pearl Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1595345705177-ffe090eb0784?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZWFybCUyMG5lY2tsYWNlfGVufDB8fHx8MTc2Nzg2MDc3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pearl necklace"
+    },
+    {
+      "id": "prod14",
+      "description": "Oxidised Silver Choker",
+      "imageUrl": "https://images.unsplash.com/photo-1740641960691-43ff55f1d558?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzaWx2ZXIlMjBjaG9rZXJ8ZW58MHx8fHwxNzY3ODk2MTE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "silver choker"
+    },
+    {
+      "id": "prod15",
+      "description": "Navratna Gemstone Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1708028868327-c2d500d5b83b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnZW1zdG9uZSUyMG5lY2tsYWNlfGVufDB8fHx8MTc2Nzg5NjExN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gemstone necklace"
+    },
+    {
+      "id": "prod16",
+      "description": "Simple Gold Chain",
+      "imageUrl": "https://images.unsplash.com/photo-1659708701940-e60893ef03d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnb2xkJTIwY2hhaW58ZW58MHx8fHwxNzY3ODg0ODY3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold chain"
+    },
+    {
+      "id": "prod17",
+      "description": "Guttapusalu Pearl Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1631832722475-dd2ecfc47257?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZWFybCUyMG5lY2tsYWNlfGVufDB8fHx8MTc2Nzg2MDc3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pearl necklace"
+    },
+    {
+      "id": "prod18",
+      "description": "Jadau Rani Haar",
+      "imageUrl": "https://images.unsplash.com/photo-1626422222400-3868e5a7ce33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsb25nJTIwbmVja2xhY2V8ZW58MHx8fHwxNzY3ODk2MTE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "long necklace"
+    },
+    {
+      "id": "prod19",
+      "description": "Solitaire Diamond Ring",
+      "imageUrl": "https://images.unsplash.com/photo-1610480356872-680486c9f6a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2xpdGFpcmUlMjByaW5nfGVufDB8fHx8MTc2Nzg5OTY3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "solitaire ring"
+    },
+    {
+      "id": "prod20",
+      "description": "Princess-Cut Diamond Studs",
+      "imageUrl": "https://images.unsplash.com/photo-1621061937083-b6d856d8112d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkaWFtb25kJTIwc3R1ZHN8ZW58MHx8fHwxNzY3ODk5Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond studs"
+    },
+    {
+      "id": "prod21",
+      "description": "Diamond Tennis Bracelet",
+      "imageUrl": "https://images.unsplash.com/photo-1619119069152-a2b331eb392a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0ZW5uaXMlMjBicmFjZWxldHxlbnwwfHx8fDE3Njc4OTk2NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tennis bracelet"
+    },
+    {
+      "id": "prod22",
+      "description": "Halo Diamond Pendant",
+      "imageUrl": "https://images.unsplash.com/photo-1605417321586-e25f7c24458a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkaWFtb25kJTIwcGVuZGFudHxlbnwwfHx8fDE3Njc4OTk2NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond pendant"
+    },
+    {
+      "id": "prod23",
+      "description": "Grand Diamond Bridal Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1589134812314-1422b4291880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxicmlkYWwlMjBuZWNrbGFjZXxlbnwwfHx8fDE3Njc4OTk2NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bridal necklace"
+    },
+    {
+      "id": "prod24",
+      "description": "Emerald and Diamond Necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1698373300063-4b6933a388f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxlbWVyYWxkJTIwbmVja2xhY2V8ZW58MHx8fHwxNzY3ODk5Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "emerald necklace"
+    },
+    {
+      "id": "gold-banner-1",
+      "description": "Model wearing gold jewelry",
+      "imageUrl": "https://images.unsplash.com/photo-1611802142742-515948957abb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnb2xkJTIwamV3ZWxyeSUyMG1vZGVsfGVufDB8fHx8MTc2OTEzMTg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold jewelry model"
+    },
+    {
+      "id": "gold-banner-2",
+      "description": "Close-up of a gold necklace",
+      "imageUrl": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxnb2xkJTIwbmVja2xhY2UlMjBjbG9zZXVwfGVufDB8fHx8MTc2OTEzMTg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold necklace closeup"
+    },
+    {
+      "id": "gold-banner-3",
+      "description": "Stack of gold bangles",
+      "imageUrl": "https://images.unsplash.com/photo-1617137984188-5374e24967a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxnb2xkJTIwYmFuZ2xlcyUyMHN0YWNrfGVufDB8fHx8MTc2OTEzMTg0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold bangles stack"
+    }
+  ]
+}
