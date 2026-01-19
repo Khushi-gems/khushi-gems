@@ -1,10 +1,9 @@
-
 export const firebaseConfig = {
-  apiKey: "AIzaSyCH6jzVNHwRzIGbu4gl2NdzGs5tXCBdkEk",
-  authDomain: "khushi-jewels.firebaseapp.com",
-  projectId: "khushi-jewels",
-  storageBucket: "khushi-jewels.firebasestorage.app",
-  messagingSenderId: "943009051270",
-  appId: "1:943009051270:web:bc2020eaf13deb71ae1707",
-  measurementId: "G-S7H9V04LJS"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };

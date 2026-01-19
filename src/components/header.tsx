@@ -21,28 +21,25 @@ import {
   VisuallyHidden,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { silverMegaMenu, goldMegaMenu, silverCategories, goldCategories } from "@/lib/data";
+import { silverCategories, goldCategories } from "@/lib/data";
+import { Category } from "@/lib/types";
 import { useCart } from "./cart-provider";
 import { CartDrawer } from "./cart-drawer";
 import { useWishlist } from "./wishlist-provider";
 import { cn } from "@/lib/utils";
 import { useRouter, usePathname } from "next/navigation";
 import { ScrollArea } from "./ui/scroll-area";
-import { motion } from "framer-motion";
-
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { cartCount, isCartOpen, setIsCartOpen } = useCart();
+  const { cartCount, setIsCartOpen } = useCart();
   const { wishlistCount } = useWishlist();
   const router = useRouter();
   const pathname = usePathname();
   const isGoldPage = pathname.startsWith('/gold');
 
-  // Select data based on environment
-  const currentMegaMenu = isGoldPage ? goldMegaMenu : silverMegaMenu;
+  // Logic to select the correct categories based on the current URL
   const currentCategories = isGoldPage ? goldCategories : silverCategories;
-  const basePath = isGoldPage ? '/gold' : '';
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -56,6 +53,15 @@ export function Header() {
     }
      setMobileMenuOpen(false);
   };
+
+  // Button Logic: 
+  // If on Gold Page -> Show "Silver Jewellery" button (Silver styling)
+  // If on Silver Page -> Show "Gold Jewellery" button (Gold styling)
+  const toggleButtonText = isGoldPage ? "Silver Jewellery" : "Gold Jewellery";
+  const toggleButtonLink = isGoldPage ? "/" : "/gold";
+  const toggleButtonStyles = isGoldPage
+    ? "bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 text-slate-900 hover:from-slate-300 hover:to-slate-500" // Removed ring-slate-400
+    : "bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-yellow-900 hover:from-yellow-300 hover:to-yellow-500"; // Removed ring-yellow-400
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/20 bg-primary text-primary-foreground backdrop-blur-sm">
@@ -78,10 +84,10 @@ export function Header() {
                <ScrollArea className="flex-grow">
                  <nav className="p-4 flex flex-col gap-4">
                   <p className="font-bold">Shop</p>
-                  {currentCategories.map((category) => (
+                  {currentCategories.map((category: Category) => (
                      <Link 
                        key={category.name} 
-                       href={isGoldPage ? `/gold/${encodeURIComponent(category.name)}` : `/category/${encodeURIComponent(category.name)}`} 
+                       href={isGoldPage ? `/gold/${encodeURIComponent(category.name)}` : `/category/${encodeURIComponent(category.name)}`}
                        className="text-muted-foreground hover:text-foreground" 
                        onClick={() => setMobileMenuOpen(false)}
                      >
@@ -115,30 +121,53 @@ export function Header() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="font-bold text-sm bg-transparent">SHOP</NavigationMenuTrigger>
+                {/* Updated Trigger: transparent background to avoid black box */}
+                <NavigationMenuTrigger 
+                   className="font-bold text-sm bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-primary-foreground"
+                >
+                  SHOP
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid w-auto min-w-[400px] grid-cols-2 gap-x-12 gap-y-6 p-6">
-                    {currentMegaMenu.map((section) => (
-                      <div key={section.title} className="flex flex-col">
-                        <h3 className="mb-4 font-bold font-body text-base text-foreground">
-                          {section.title}
-                        </h3>
-                        <ul className="flex flex-col gap-2">
-                          {section.items.map((item) => (
-                            <li key={item.name}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={item.href}
-                                  className="text-sm text-muted-foreground hover:text-foreground"
-                                >
-                                  {item.name}
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                    {/* CATEGORIES COLUMN - Dynamically shows Gold or Silver categories */}
+                    <div className="flex flex-col">
+                      <h3 className="mb-4 font-bold font-body text-base text-foreground">
+                        CATEGORIES
+                      </h3>
+                      <ul className="flex flex-col gap-2">
+                        {currentCategories.map((category: Category) => (
+                          <li key={category.name}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={isGoldPage ? `/gold/${encodeURIComponent(category.name)}` : `/category/${encodeURIComponent(category.name)}`}
+                                className="text-sm text-muted-foreground hover:text-foreground"
+                              >
+                                {category.name}
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* MATERIALS COLUMN */}
+                    <div className="flex flex-col">
+                       <h3 className="mb-4 font-bold font-body text-base text-foreground">
+                        MATERIALS
+                      </h3>
+                      <ul className="flex flex-col gap-2">
+                         <li>
+                            <NavigationMenuLink asChild>
+                              <Link href="/gold" className="text-sm text-muted-foreground hover:text-foreground">Gold</Link>
+                            </NavigationMenuLink>
+                         </li>
+                         <li>
+                            <NavigationMenuLink asChild>
+                              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">Silver</Link>
+                            </NavigationMenuLink>
+                         </li>
+                      </ul>
+                    </div>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -197,19 +226,16 @@ export function Header() {
               <span className="sr-only">My Account</span>
             </Link>
           </Button>
-            <motion.div
-              animate={{ scale: isGoldPage ? 1 : [1, 1.1, 1] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            >
-              <Button asChild className={cn(
-                "inline-flex flex-shrink-0 rounded-full bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-yellow-900 font-bold shadow-md hover:shadow-lg hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 text-xs px-3 h-8 md:text-sm md:px-4 md:h-auto",
-                isGoldPage && "ring-2 ring-offset-2 ring-yellow-400 from-yellow-300 to-yellow-500"
-              )}>
-                <Link href={isGoldPage ? "/" : "/gold"}>
-                   {isGoldPage ? "Silver Jewellery" : "Gold Jewellery"}
-                </Link>
-              </Button>
-            </motion.div>
+            
+            {/* Toggle Button: Removed 'ring' conditions so size is consistent */}
+            <Button asChild className={cn(
+              "inline-flex flex-shrink-0 rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-300 text-xs px-3 h-8 md:text-sm md:px-4 md:h-auto",
+              toggleButtonStyles
+            )}>
+              <Link href={toggleButtonLink}>
+                 {toggleButtonText}
+              </Link>
+            </Button>
         </div>
       </div>
       <CartDrawer />
