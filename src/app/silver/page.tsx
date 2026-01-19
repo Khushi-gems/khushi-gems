@@ -1,9 +1,9 @@
-
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { categories } from "@/lib/data";
+// CHANGE 1: Import silverCategories as a source alias to avoid conflict
+import { silverCategories as sourceCategories } from "@/lib/data"; 
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -35,7 +35,8 @@ export default function SilverPage() {
 
     const silverCategories = useMemo(() => {
         const uniqueCategoryNames = [...new Set(silverProducts.map(p => p.category))];
-        return categories.filter(c => uniqueCategoryNames.includes(c.name));
+        // CHANGE 2: Use sourceCategories instead of categories
+        return sourceCategories.filter(c => uniqueCategoryNames.includes(c.name));
     }, [silverProducts]);
 
     if (isLoading) {
