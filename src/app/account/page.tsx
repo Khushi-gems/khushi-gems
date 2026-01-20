@@ -27,6 +27,7 @@ import {
   DialogTrigger,
   DialogFooter,
   DialogClose,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import {
   Form,
@@ -50,6 +51,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   type User as FirebaseUser,
 } from "firebase/auth";
 import { doc, Firestore, setDoc, getDoc, collection, query, orderBy } from 'firebase/firestore';
@@ -89,6 +91,8 @@ function AuthForm({ firestore, setAuthInProgress }: {
     const { toast } = useToast();
     const [loginShowPassword, setLoginShowPassword] = useState(false);
     const [registerShowPassword, setRegisterShowPassword] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+    const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
     
     const handleAuthError = (error: any) => {
         let title = "Uh oh! Something went wrong.";
@@ -173,101 +177,155 @@ function AuthForm({ firestore, setAuthInProgress }: {
             setAuthInProgress(false);
         }
     };
+    
+    const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!auth || !resetEmail) return;
+        try {
+            await sendPasswordResetEmail(auth, resetEmail);
+            toast({ title: "Password Reset Email Sent", description: "Please check your inbox for instructions to reset your password." });
+            setIsResetDialogOpen(false);
+            setResetEmail('');
+        } catch (error: any) {
+            let title = "Error Sending Reset Email";
+            let description = error.message || "An unknown error occurred.";
+            if (error.code === 'auth/user-not-found') {
+                description = "No account found with this email address.";
+            } else if (error.code === 'auth/invalid-email') {
+                description = "Please enter a valid email address.";
+            }
+            toast({ variant: "destructive", title, description });
+        }
+    };
 
 
     return (
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-            {/* Login Form */}
-            <div className="w-full max-w-md mx-auto p-8">
-                <h2 className="font-headline text-3xl mb-8 text-center">Login</h2>
-                <form className="space-y-6" onSubmit={handleLogin}>
-                    <div>
-                        <Label htmlFor="login-email">Username or email address</Label>
-                        <Input id="login-email" name="login-email" type="email" required className="mt-1"/>
-                    </div>
-                    <div className="relative">
-                        <Label htmlFor="login-password">Password</Label>
-                        <Input 
-                            id="login-password" 
-                            name="login-password"
-                            type={loginShowPassword ? "text" : "password"} 
-                            required 
-                            className="mt-1"
-                        />
-                        <Button type="button" variant="ghost" size="icon" className="absolute right-1 bottom-1 h-8 w-8 text-muted-foreground hover:bg-transparent" onClick={() => setLoginShowPassword(!loginShowPassword)}>
-                            {loginShowPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                        </Button>
-                    </div>
-                    <div className="flex items-center justify-between flex-wrap gap-4">
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="remember-me" />
-                            <Label htmlFor="remember-me" className="font-normal text-sm">Remember me</Label>
+        <Dialog open={isResetDialogOpen} onOpenChange={setIsResetDialogOpen}>
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+                {/* Login Form */}
+                <div className="w-full max-w-md mx-auto p-8">
+                    <h2 className="font-headline text-3xl mb-8 text-center">Login</h2>
+                    <form className="space-y-6" onSubmit={handleLogin}>
+                        <div>
+                            <Label htmlFor="login-email">Username or email address</Label>
+                            <Input id="login-email" name="login-email" type="email" required className="mt-1"/>
                         </div>
-                        <Link href="#" className="text-sm hover:underline text-muted-foreground">Lost your password?</Link>
-                    </div>
-                    <Button type="submit" className="w-full">
-                        LOG IN
-                    </Button>
-                    <div className="relative flex py-2 items-center">
-                        <div className="flex-grow border-t border-black/10"></div>
-                        <span className="flex-shrink mx-4 text-muted-foreground text-sm">OR</span>
-                        <div className="flex-grow border-t border-black/10"></div>
-                    </div>
-                    <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn}>
-                        <GoogleIcon className="mr-2 h-5 w-5" />
-                        Continue with Google
-                    </Button>
-                </form>
+                        <div className="relative">
+                            <Label htmlFor="login-password">Password</Label>
+                            <Input 
+                                id="login-password" 
+                                name="login-password"
+                                type={loginShowPassword ? "text" : "password"} 
+                                required 
+                                className="mt-1"
+                            />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 bottom-1 h-8 w-8 text-muted-foreground hover:bg-transparent" onClick={() => setLoginShowPassword(!loginShowPassword)}>
+                                {loginShowPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                            </Button>
+                        </div>
+                        <div className="flex items-center justify-between flex-wrap gap-4">
+                            <div className="flex items-center gap-2">
+                                <Checkbox id="remember-me" />
+                                <Label htmlFor="remember-me" className="font-normal text-sm">Remember me</Label>
+                            </div>
+                            <DialogTrigger asChild>
+                                <Button variant="link" type="button" className="text-sm p-0 h-auto font-normal text-muted-foreground hover:underline">Lost your password?</Button>
+                            </DialogTrigger>
+                        </div>
+                        <Button type="submit" className="w-full">
+                            LOG IN
+                        </Button>
+                        <div className="relative flex py-2 items-center">
+                            <div className="flex-grow border-t border-black/10"></div>
+                            <span className="flex-shrink mx-4 text-muted-foreground text-sm">OR</span>
+                            <div className="flex-grow border-t border-black/10"></div>
+                        </div>
+                        <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn}>
+                            <GoogleIcon className="mr-2 h-5 w-5" />
+                            Continue with Google
+                        </Button>
+                    </form>
+                </div>
+                
+                <div className="absolute hidden md:block left-1/2 -translate-x-1/2 top-0 h-full w-px bg-black/10"></div>
+                
+                {/* Register Form */}
+                <div className="w-full max-w-md mx-auto p-8">
+                    <h2 className="font-headline text-3xl mb-8 text-center">Register</h2>
+                    <form className="space-y-6" onSubmit={handleRegister}>
+                        <div>
+                            <Label htmlFor="register-email">Email address</Label>
+                            <Input id="register-email" name="register-email" type="email" required className="mt-1"/>
+                        </div>
+                        <div className="relative">
+                            <Label htmlFor="register-password">Password</Label>
+                            <Input 
+                                id="register-password" 
+                                name="register-password"
+                                type={registerShowPassword ? "text" : "password"} 
+                                required 
+                                className="mt-1"
+                            />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 bottom-1 h-8 w-8 text-muted-foreground hover:bg-transparent" onClick={() => setRegisterShowPassword(!registerShowPassword)}>
+                                {registerShowPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                            </Button>
+                        </div>
+                        <div className="pt-2">
+                            <p className="text-xs text-muted-foreground">
+                                Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <Link href="/privacy-policy" className="underline hover:text-foreground">privacy policy</Link>.
+                            </p>
+                        </div>
+                        <p className="text-xs text-muted-foreground pt-2">
+                            This site is protected by reCAPTCHA and the Google
+                            {' '}<Link href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noopener noreferrer">Privacy Policy</Link> and
+                            {' '}<Link href="https://policies.google.com/terms" className="underline" target="_blank" rel="noopener noreferrer">Terms of Service</Link> apply.
+                        </p>
+                        <Button type="submit" className="w-full">
+                            REGISTER
+                        </Button>
+                        <div className="relative flex py-2 items-center">
+                            <div className="flex-grow border-t border-black/10"></div>
+                            <span className="flex-shrink mx-4 text-muted-foreground text-sm">OR</span>
+                            <div className="flex-grow border-t border-black/10"></div>
+                        </div>
+                        <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn}>
+                            <GoogleIcon className="mr-2 h-5 w-5" />
+                            Continue with Google
+                        </Button>
+                    </form>
+                </div>
             </div>
-            
-            <div className="absolute hidden md:block left-1/2 -translate-x-1/2 top-0 h-full w-px bg-black/10"></div>
-            
-            {/* Register Form */}
-            <div className="w-full max-w-md mx-auto p-8">
-                <h2 className="font-headline text-3xl mb-8 text-center">Register</h2>
-                <form className="space-y-6" onSubmit={handleRegister}>
+
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Reset Your Password</DialogTitle>
+                    <DialogDescription>
+                        Enter your email address and we will send you a link to reset your password.
+                    </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handlePasswordReset} className="space-y-4 pt-4">
                     <div>
-                        <Label htmlFor="register-email">Email address</Label>
-                        <Input id="register-email" name="register-email" type="email" required className="mt-1"/>
-                    </div>
-                    <div className="relative">
-                        <Label htmlFor="register-password">Password</Label>
+                        <Label htmlFor="reset-email">Email Address</Label>
                         <Input 
-                            id="register-password" 
-                            name="register-password"
-                            type={registerShowPassword ? "text" : "password"} 
+                            id="reset-email" 
+                            name="reset-email" 
+                            type="email" 
                             required 
                             className="mt-1"
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
+                            placeholder="you@example.com"
                         />
-                        <Button type="button" variant="ghost" size="icon" className="absolute right-1 bottom-1 h-8 w-8 text-muted-foreground hover:bg-transparent" onClick={() => setRegisterShowPassword(!registerShowPassword)}>
-                            {registerShowPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                        </Button>
                     </div>
-                    <div className="pt-2">
-                        <p className="text-xs text-muted-foreground">
-                            Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <Link href="/privacy-policy" className="underline hover:text-foreground">privacy policy</Link>.
-                        </p>
-                    </div>
-                    <p className="text-xs text-muted-foreground pt-2">
-                        This site is protected by reCAPTCHA and the Google
-                        {' '}<Link href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noopener noreferrer">Privacy Policy</Link> and
-                        {' '}<Link href="https://policies.google.com/terms" className="underline" target="_blank" rel="noopener noreferrer">Terms of Service</Link> apply.
-                    </p>
-                    <Button type="submit" className="w-full">
-                        REGISTER
-                    </Button>
-                    <div className="relative flex py-2 items-center">
-                        <div className="flex-grow border-t border-black/10"></div>
-                        <span className="flex-shrink mx-4 text-muted-foreground text-sm">OR</span>
-                        <div className="flex-grow border-t border-black/10"></div>
-                    </div>
-                    <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn}>
-                        <GoogleIcon className="mr-2 h-5 w-5" />
-                        Continue with Google
-                    </Button>
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <Button type="button" variant="ghost">Cancel</Button>
+                        </DialogClose>
+                        <Button type="submit">Send Reset Link</Button>
+                    </DialogFooter>
                 </form>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     )
 }
 
@@ -410,10 +468,10 @@ function AddressesContent({ userProfile, onSave }: { userProfile: any, onSave: (
     
     const addressToEdit = editingAddressType ? userProfile?.[editingAddressType] : undefined;
 
-    const renderAddress = (address: any, type: 'billing' | 'shipping') => {
+    const AddressBox = ({ address, type }: { address: any, type: 'billing' | 'shipping' }) => {
         if (!address || !address.streetAddress) {
             return (
-                <div className="border-2 border-dashed rounded-lg p-4 h-full flex flex-col items-center justify-center text-center">
+                <div className="border-2 border-dashed rounded-lg p-4 flex-grow flex flex-col items-center justify-center text-center bg-secondary/30">
                     <p className="text-sm text-muted-foreground">You have not set up this address.</p>
                     <Button variant="link" className="p-0 mt-1 h-auto text-sm" onClick={() => handleEditClick(type === 'billing' ? 'billingAddress' : 'shippingAddress')}>
                         Add address
@@ -422,13 +480,15 @@ function AddressesContent({ userProfile, onSave }: { userProfile: any, onSave: (
             );
         }
         return (
-             <address className="text-sm border p-4 rounded-lg space-y-1 not-italic h-full flex flex-col justify-center bg-secondary/30">
+             <address className="text-sm border p-4 rounded-lg not-italic flex-grow bg-secondary/30">
                 <p className="font-bold text-foreground">{address.firstName} {address.lastName}</p>
-                {address.company && <p>{address.company}</p>}
-                <p>{address.streetAddress}</p>
-                <p>{address.city}, {address.state} {address.pinCode}</p>
-                <p>{address.country}</p>
-                {address.phone && <p className="pt-2">Phone: {address.phone}</p>}
+                <div className="mt-2 space-y-1 text-muted-foreground">
+                    {address.company && <p>{address.company}</p>}
+                    <p>{address.streetAddress}</p>
+                    <p>{address.city}, {address.state}, {address.pinCode}</p>
+                    <p>{address.country}</p>
+                    {address.phone && <p className="pt-2">Phone: {address.phone}</p>}
+                </div>
             </address>
         )
     };
@@ -438,20 +498,20 @@ function AddressesContent({ userProfile, onSave }: { userProfile: any, onSave: (
             <CardHeader><CardTitle className="text-2xl">My Addresses</CardTitle></CardHeader>
             <CardContent>
                 <p className="text-muted-foreground mb-6">The following addresses will be used on the checkout page by default.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                    <div className="flex flex-col">
                         <div className="flex justify-between items-center mb-2">
                             <h3 className="font-semibold text-lg">Billing Address</h3>
                             <Button variant="link" className="p-0 h-auto text-sm" onClick={() => handleEditClick('billingAddress')}>Edit</Button>
                         </div>
-                        {renderAddress(userProfile?.billingAddress, 'billing')}
+                        <AddressBox address={userProfile?.billingAddress} type='billing' />
                     </div>
-                    <div>
+                    <div className="flex flex-col">
                          <div className="flex justify-between items-center mb-2">
                             <h3 className="font-semibold text-lg">Shipping Address</h3>
                             <Button variant="link" className="p-0 h-auto text-sm" onClick={() => handleEditClick('shippingAddress')}>Edit</Button>
                         </div>
-                         {renderAddress(userProfile?.shippingAddress, 'shipping')}
+                         <AddressBox address={userProfile?.shippingAddress} type='shipping' />
                     </div>
                 </div>
                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -466,7 +526,7 @@ function AddressesContent({ userProfile, onSave }: { userProfile: any, onSave: (
                 </Dialog>
             </CardContent>
         </Card>
-    )
+    );
 }
 
 function AccountDetailsContent({ user, userProfile, isProfileLoading, onSave }: { user: FirebaseUser, userProfile: any, isProfileLoading: boolean, onSave: (data: { firstName: string, lastName: string }) => void }) {
@@ -732,5 +792,3 @@ export default function AccountPage() {
       </div>
     );
 }
-
-    
