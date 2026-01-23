@@ -14,20 +14,32 @@ import { motion } from "framer-motion";
 
 const faqs = [
     {
-        question: "What materials do you use?",
-        answer: "We use high-quality materials including 22k gold, sterling silver, and ethically sourced gemstones."
+        question: "Where is your jewellery made?",
+        answer: "All our jewellery is handcrafted in our own workshop in Johari Bazar, Jaipur — a world-renowned hub for gold, silver, polki, kundan-meena, and jadau craftsmanship.\nWith generations of skilled karigars, we blend traditional royal artistry with our modern design sensibility to create timeless bridal and fine jewellery."
     },
     {
-        question: "How do I care for my jewelry?",
-        answer: "To keep your jewelry looking its best, avoid contact with chemicals and store it in a dry place. Clean gently with a soft cloth."
+        question: "What is your jewellery made of?",
+        answer: "We exclusively work with pure gold and 92.5 sterling silver, ensuring authenticity, quality, and lasting value in every piece."
     },
     {
-        question: "Do you offer international shipping?",
-        answer: "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by location."
+        question: "How can I pay for my order?",
+        answer: "You can pay securely using Indian or international credit/debit cards and net banking (India).\nCash on Delivery is currently unavailable.\nFor payment assistance or international transaction queries, please contact Mr. Anil Soni: +91 9928070606."
     },
     {
-        question: "What is your return policy?",
-        answer: "We offer a 14-day return policy for unused items in their original packaging. Please see our Returns & Exchanges page for more details."
+        question: "How soon can I get my order?",
+        answer: "Each piece is made to order. Crafting takes 3–4 weeks, followed by a personal quality check before dispatch.\nThe total delivery timeline is approximately 3–5 weeks.\nOur team stays in touch with you throughout the process."
+    },
+    {
+        question: "Can I customise orders?",
+        answer: "Yes. We offer complete customisation—design, artwork, craftsmanship, and even alternative metals like copper, if required. Every detail can be tailored to your preference."
+    },
+    {
+        question: "Can I exchange or return my order?",
+        answer: "Our jewellery is handmade, so slight variations in finish, stone shade, or detailing are natural and part of the craft.\nIf your item arrives damaged or incorrect, please share photos within 14 days of delivery via WhatsApp or call +91 9928070606 for assistance."
+    },
+    {
+        question: "Can I get a refund or exchange my purchase?",
+        answer: "We do not offer refunds or exchanges on made-to-order jewellery.\nHowever, exchanges may be considered after discussion, depending on the item purchased."
     }
 ];
 
@@ -64,7 +76,11 @@ export default function FaqPage() {
                     <AccordionItem value={`item-${index}`}>
                         <AccordionTrigger>{faq.question}</AccordionTrigger>
                         <AccordionContent>
-                            {faq.answer}
+                           <div className="space-y-4">
+                                {faq.answer.split('\n').map((line, i) => (
+                                    line.trim() && <p key={i}>{line}</p>
+                                ))}
+                            </div>
                         </AccordionContent>
                     </AccordionItem>
                  </motion.div>

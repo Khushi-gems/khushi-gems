@@ -1,8 +1,7 @@
-
 import Link from "next/link";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, User } from "lucide-react";
 import {
   Tabs,
   TabsContent,
@@ -31,6 +30,12 @@ export function Footer() {
     { name: "My Account", href: "/account" },
     { name: "Orders Tracking", href: "/track-order" },
     { name: "Cart", href: "/cart" },
+  ];
+
+  const contactPersons = [
+    { name: "Anil kumar soni", phone: "+91 9928070606" },
+    { name: "Priyansh soni", phone: "+91 7014533288" },
+    { name: "Sunil kumar soni", phone: "+91 9829134725" }
   ];
 
   return (
@@ -74,7 +79,7 @@ export function Footer() {
           </div>
           <div className="md:col-span-1">
               <h3 className="font-headline text-lg mb-4">Contact Us</h3>
-              <div className="space-y-3 text-sm text-primary-foreground/90">
+              <div className="space-y-4 text-sm text-primary-foreground/90">
                   <div className="flex items-start gap-3">
                       <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                       <div>
@@ -82,9 +87,18 @@ export function Footer() {
                         <p>172, Badi Chopar, Mehandi Ka Chowk, Johri Bazar, Ramganj Bazar, Jaipur, Rajasthan 302003</p>
                       </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                      <Phone className="h-4 w-4" />
-                      <span>+91 9928070606</span>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <User className="h-4 w-4 flex-shrink-0" />
+                      <div className="space-y-2">
+                        {contactPersons.map((person, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <span className="font-medium">{person.name}:</span>
+                            <span className="text-primary-foreground/80">{person.phone}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3">
                       <Mail className="h-4 w-4" />
@@ -168,9 +182,16 @@ export function Footer() {
                         <p className="px-4">172, Badi Chopar, Mehandi Ka Chowk, Johri Bazar, Ramganj Bazar, Jaipur, Rajasthan 302003</p>
                       </div>
                   </div>
-                  <div className="flex items-center gap-3 justify-center">
-                      <Phone className="h-4 w-4" />
-                      <span>+91 9928070606</span>
+                  <div className="flex flex-col items-center gap-2">
+                      <User className="h-5 w-5" />
+                      <div className="space-y-2">
+                        {contactPersons.map((person, index) => (
+                          <div key={index} className="flex flex-col items-center">
+                            <span className="font-medium">{person.name}</span>
+                            <span className="text-primary-foreground/80">{person.phone}</span>
+                          </div>
+                        ))}
+                      </div>
                   </div>
                   <div className="flex items-center gap-3 justify-center">
                       <Mail className="h-4 w-4" />

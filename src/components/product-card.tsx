@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -18,7 +17,26 @@ type ProductCardProps = {
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
   const { addToWishlist, removeFromWishlist, isItemInWishlist } = useWishlist();
-  const inWishlist = isItemInWishlist(product.id);
+  
+  // SAFETY: Ensure we have an ID to check the wishlist
+  const inWishlist = product.id ? isItemInWishlist(product.id) : false;
+
+  // SAFETY: Generate a slug if it's missing (e.g. from raw bestseller data)
+  const productSlug = product.slug 
+    ? product.slug 
+    : product.name 
+      ? product.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') 
+      : 'product';
+
+  // SAFETY: Handle price if it comes in as a string or number
+  const displayPrice = typeof product.price === 'number' 
+    ? product.price.toLocaleString() 
+    : parseFloat(String(product.price || 0)).toLocaleString();
+
+  // LOGIC: Use the first image from the array, or fallback to the legacy imageUrl, or a placeholder
+  const mainImage = (product.imageUrls && product.imageUrls.length > 0) 
+    ? product.imageUrls[0] 
+    : product.imageUrl || '/placeholder-image.jpg';
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -34,15 +52,18 @@ export function ProductCard({ product }: ProductCardProps) {
     <Card className="group w-full overflow-hidden border-none shadow-none bg-transparent">
       <CardContent className="p-0">
         <div className="relative">
-          <Link href={`/products/${product.slug}`}>
+          {/* UPDATED LINK: Uses the safe 'productSlug' calculated above */}
+          <Link href={`/products/${productSlug}`}>
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg">
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                data-ai-hint={product.imageHint}
-              />
+              {mainImage && (
+                <Image
+                  src={mainImage}
+                  alt={product.name || 'Product Image'}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+              )}
             </div>
           </Link>
           <div className="absolute bottom-2 left-2 right-2 flex justify-between items-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
@@ -65,18 +86,19 @@ export function ProductCard({ product }: ProductCardProps) {
             </Button>
           </div>
            <div className="absolute top-2 right-2">
-            {product.tag && (
+            {product.availability === 'READY TO SHIP' && (
               <div className="rounded-full bg-background/80 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm">
-                {product.tag}
+                Ready to Ship
               </div>
             )}
           </div>
         </div>
         <div className="mt-3 text-left">
-          <Link href={`/products/${product.slug}`}>
+           {/* UPDATED LINK: Uses the safe 'productSlug' calculated above */}
+          <Link href={`/products/${productSlug}`}>
             <h3 className="font-semibold text-base truncate">{product.name}</h3>
           </Link>
-          <p className="text-sm text-muted-foreground mt-1">₹{product.price.toLocaleString()}</p>
+          <p className="text-sm text-muted-foreground mt-1">₹{displayPrice}</p>
         </div>
       </CardContent>
     </Card>

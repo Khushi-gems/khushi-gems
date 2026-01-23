@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-// CHANGE 1: Import silverCategories as a source alias to avoid conflict
 import { silverCategories as sourceCategories } from "@/lib/data"; 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -18,6 +17,7 @@ import { ProductCard } from "@/components/product-card";
 import { useMemo } from "react";
 import { useProducts } from "@/components/product-provider";
 import { LoadingLogo } from "@/components/loading-logo";
+import { Loader2 } from "lucide-react";
 
 const sectionAnimation = {
   initial: { opacity: 0, y: 50 },
@@ -26,16 +26,19 @@ const sectionAnimation = {
   transition: { duration: 0.5, ease: "easeOut", staggerChildren: 0.2 }
 };
 
-
 export default function SilverPage() {
-    const { products, isLoading } = useProducts();
+    const { bestsellers, products, isLoading } = useProducts();
 
     const silverProducts = useMemo(() => products.filter(p => p.material === 'Silver'), [products]);
-    const silverBestsellers = useMemo(() => silverProducts.slice(0, 8), [silverProducts]);
+    
+    // Use bestsellers from provider instead of Firestore query
+    const silverBestsellers = useMemo(() => 
+        bestsellers.filter(p => p.material === 'Silver'), 
+        [bestsellers]
+    );
 
     const silverCategories = useMemo(() => {
         const uniqueCategoryNames = [...new Set(silverProducts.map(p => p.category))];
-        // CHANGE 2: Use sourceCategories instead of categories
         return sourceCategories.filter(c => uniqueCategoryNames.includes(c.name));
     }, [silverProducts]);
 
@@ -99,46 +102,52 @@ export default function SilverPage() {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <h3 className="absolute bottom-4 left-4 font-headline text-xl text-beige">{category.name}</h3>
-                </CardContent>
+                  </CardContent>
               </Card>
             </Link>
           ))}
         </div>
       </div>
 
-      {silverBestsellers.length > 0 && (
-        <motion.section className="w-full bg-secondary/50 py-16 md:py-24" data-ai-hint="bestsellers carousel" {...sectionAnimation}>
+      <motion.section className="w-full bg-secondary/50 py-16 md:py-24" data-ai-hint="bestsellers carousel" {...sectionAnimation}>
             <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-center font-headline text-3xl md:text-4xl mb-2">Our Silver Bestsellers</h2>
                 <p className="text-center text-muted-foreground mb-8">Timeless silver pieces, handcrafted with love</p>
-                <Carousel 
-                opts={{ align: 'start', loop: true }} 
-                plugins={[
-                    Autoplay({
-                    delay: 4000,
-                    stopOnInteraction: true,
-                    }),
-                ]}
-                className="w-full"
-                >
-                <CarouselContent className="-ml-4">
-                    {silverBestsellers.map((product) => (
-                    <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
-                        <ProductCard product={product} />
-                    </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <div className="hidden md:block">
-                    <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
-                    <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
-                </div>
-                </Carousel>
+                
+                {isLoading ? (
+                    <div className="flex justify-center items-center h-48">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    </div>
+                ) : silverBestsellers && silverBestsellers.length > 0 ? (
+                    <Carousel 
+                    opts={{ align: 'start', loop: true }} 
+                    plugins={[
+                        Autoplay({
+                        delay: 4000,
+                        stopOnInteraction: true,
+                        }),
+                    ]}
+                    className="w-full"
+                    >
+                    <CarouselContent className="-ml-4">
+                        {silverBestsellers.map((product) => (
+                        <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
+                            <ProductCard product={product} />
+                        </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <div className="hidden md:block">
+                        <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
+                        <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
+                    </div>
+                    </Carousel>
+                ) : (
+                     <p className="text-center text-muted-foreground">No bestseller products found.</p>
+                )}
             </div>
             </div>
         </motion.section>
-      )}
-
     </div>
   );
 }

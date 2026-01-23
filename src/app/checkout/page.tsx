@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -35,7 +34,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { useUser, useFirestore, useDoc, useMemoFirebase, useAuth, errorEmitter, FirestorePermissionError, setDocumentNonBlocking } from "@/firebase";
-import { doc, addDoc, collection, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, addDoc, collection, serverTimestamp, setDoc, writeBatch, increment } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import { LoadingLogo } from "@/components/loading-logo";
@@ -294,12 +293,24 @@ function CheckoutForm({ onPlaceOrder }: { onPlaceOrder: () => void }) {
     };
 
     try {
-      const ordersCollectionRef = collection(firestore, 'users', effectiveUser.uid, 'orders');
-      const newOrderRef = await addDoc(ordersCollectionRef, orderData);
+      // Initialize Batch
+      const batch = writeBatch(firestore);
 
+      // 1. Create Order Reference
+      const ordersCollectionRef = collection(firestore, 'users', effectiveUser.uid, 'orders');
+      const newOrderRef = doc(ordersCollectionRef); // Create ID client-side
+      batch.set(newOrderRef, orderData);
+
+      // 2. Add Order Items & Prepare Stock Updates
       const orderItemsCollectionRef = collection(newOrderRef, 'orderItems');
+      
+      // Calculate total quantity per product ID to handle multiple size entries for same product
+      const stockUpdates: Record<string, number> = {};
+
       for (const item of cart) {
-        await addDoc(orderItemsCollectionRef, {
+        // Add item to order subcollection
+        const newItemRef = doc(orderItemsCollectionRef);
+        batch.set(newItemRef, {
           productId: item.id,
           name: item.name,
           imageUrl: item.imageUrl,
@@ -307,9 +318,27 @@ function CheckoutForm({ onPlaceOrder }: { onPlaceOrder: () => void }) {
           itemPrice: item.price,
           size: item.size || null,
         });
+
+        // Accumulate stock decrement
+        if (stockUpdates[item.id]) {
+            stockUpdates[item.id] += item.quantity;
+        } else {
+            stockUpdates[item.id] = item.quantity;
+        }
       }
 
-      // Save address to user profile
+      // 3. Add Stock Updates to Batch
+      for (const [productId, quantity] of Object.entries(stockUpdates)) {
+          const productRef = doc(firestore, 'products', productId);
+          batch.update(productRef, {
+              stockQuantity: increment(-quantity)
+          });
+      }
+
+      // 4. Commit all changes atomically
+      await batch.commit();
+
+      // Save address to user profile (non-blocking, existing logic)
       const userDocRef = doc(firestore, 'users', effectiveUser.uid);
       const billingAddress = {
           firstName: values.firstName,
@@ -344,13 +373,30 @@ function CheckoutForm({ onPlaceOrder }: { onPlaceOrder: () => void }) {
       localStorage.removeItem('checkoutForm');
       router.push(`/thank-you?orderId=${newOrderRef.id}&new=true`);
 
-    } catch (error) {
-        const permissionError = new FirestorePermissionError({
-            path: `users/${effectiveUser.uid}/orders`,
-            operation: 'create',
-            requestResourceData: orderData
-        });
-        errorEmitter.emit('permission-error', permissionError);
+    } catch (error: any) {
+        console.error("Order processing error:", error);
+        
+        // Handle Permission Errors specifically
+        if (error.code === 'permission-denied') {
+             toast({
+                variant: "destructive",
+                title: "Order Failed",
+                description: "There was an issue updating the stock. Please contact support.",
+            });
+        } else {
+            const permissionError = new FirestorePermissionError({
+                path: `users/${effectiveUser.uid}/orders`,
+                operation: 'create',
+                requestResourceData: orderData
+            });
+            errorEmitter.emit('permission-error', permissionError);
+            
+            toast({
+                variant: "destructive",
+                title: "Order Failed",
+                description: "Something went wrong. Please try again.",
+            });
+        }
         throw error;
     }
   }

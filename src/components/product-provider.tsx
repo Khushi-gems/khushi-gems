@@ -22,6 +22,7 @@ interface ProductFromDB {
 
 interface ProductsContextType {
   products: ProductType[];
+  bestsellers: ProductType[]; // Separate bestsellers array
   isLoading: boolean;
   error: Error | null;
 }
@@ -46,7 +47,7 @@ function detectCategory(input: string | undefined): string | null {
     return null;
 }
 
-function transformProduct(product: ProductFromDB & { id: string }): ProductType | null {
+function transformProduct(product: ProductFromDB & { id: string }, source: 'products' | 'bestsellers' = 'products'): ProductType | null {
     try {
         // 1. Validate Name
         if (typeof product.name !== 'string' || !product.name) return null;
@@ -71,9 +72,14 @@ function transformProduct(product: ProductFromDB & { id: string }): ProductType 
         if (allInfoForMaterial.includes('gold')) material = 'Gold';
         else if (allInfoForMaterial.includes('silver')) material = 'Silver';
 
+        // For bestsellers, try to determine material from 'type' field
+        if (!material && source === 'bestsellers') {
+            if (typeof product.type === 'string' && product.type.toLowerCase() === 'gold') material = 'Gold';
+            else if (typeof product.type === 'string' && product.type.toLowerCase() === 'silver') material = 'Silver';
+        }
+
         if (!material) {
-            // Optional: Default to Silver if you want to be very lenient, but safer to skip unknown materials
-             return null; 
+            return null; 
         }
 
         // 4. Determine Category 
@@ -85,12 +91,13 @@ function transformProduct(product: ProductFromDB & { id: string }): ProductType 
         if (detectedFromType) finalCategory = detectedFromType;
         else if (detectedFromCat) finalCategory = detectedFromCat;
         else if (detectedFromName) finalCategory = detectedFromName;
-        else if (product.category) finalCategory = product.category; // Use raw category if we can't detect standard one
+        else if (product.category) finalCategory = product.category;
 
         // 5. Find the primary image URL (Use placeholder if missing)
-        let mainImageUrl = "https://placehold.co/600x400?text=No+Image"; // Default Placeholder
+        let mainImageUrl = "https://placehold.co/600x400?text=No+Image";
         let images: { url: string; hint: string }[] = [];
 
+        // Handle different image field names
         if (Array.isArray(product.imageUrls) && product.imageUrls.length > 0) {
             const validImageUrls = product.imageUrls.filter(url => typeof url === 'string' && url);
             if (validImageUrls.length > 0) {
@@ -99,15 +106,38 @@ function transformProduct(product: ProductFromDB & { id: string }): ProductType 
             }
         } else if (typeof product.imageUrl === 'string' && product.imageUrl) {
             mainImageUrl = product.imageUrl;
+            images = [{ url: mainImageUrl, hint: product.name }];
         } else if (typeof (product as any).iageUrl === 'string' && (product as any).iageUrl) {
             mainImageUrl = (product as any).iageUrl;
+            images = [{ url: mainImageUrl, hint: product.name }];
+        } else if (source === 'bestsellers' && product.images && Array.isArray(product.images)) {
+            // Handle bestsellers with images array
+            const firstImage = product.images[0];
+            if (firstImage && firstImage.url) {
+                mainImageUrl = firstImage.url;
+                images = product.images.map((img: any) => ({
+                    url: img.url || img,
+                    hint: product.name
+                }));
+            }
         }
         
         if (images.length === 0) {
             images.push({ url: mainImageUrl, hint: product.name });
         }
 
-        const slug = product.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        // 6. Generate slug
+        const slug = product.slug || product.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+        // 7. Validate Availability [FIXED SECTION]
+        // Explicitly check if the string matches the allowed union type
+        let availability: 'READY TO SHIP' | 'MADE TO ORDER' = 'READY TO SHIP';
+        
+        if (product.availability === 'MADE TO ORDER') {
+            availability = 'MADE TO ORDER';
+        } else if (product.availability === 'READY TO SHIP') {
+            availability = 'READY TO SHIP';
+        }
         
         return {
             id: product.id,
@@ -115,12 +145,17 @@ function transformProduct(product: ProductFromDB & { id: string }): ProductType 
             price: price,
             slug: slug,
             material: material,
-            tag: product.availability || 'READY TO SHIP',
+            tag: availability, // Now safely typed
             imageUrl: mainImageUrl,
             images: images,
             imageHint: product.name,
             category: finalCategory,
             description: product.description || '',
+            // Mark if it's a bestseller
+            isBestseller: source === 'bestsellers',
+            // Include all image URLs for ProductCard compatibility
+            imageUrls: product.imageUrls || images.map(img => img.url),
+            availability: availability // Now safely typed
         };
     } catch (e: any) {
         console.error(`Error transforming product ${product.id}:`, e);
@@ -131,22 +166,65 @@ function transformProduct(product: ProductFromDB & { id: string }): ProductType 
 export const ProductProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const firestore = useFirestore();
     
+    // Fetch regular products
     const productsCollection = useMemoFirebase(() => {
         if (!firestore) return null;
         return collection(firestore, 'products');
     }, [firestore]);
 
-    const { data: rawProducts, isLoading, error } = useCollection<ProductFromDB>(productsCollection as Query | null);
+    const { data: rawProducts, isLoading: productsLoading, error: productsError } = useCollection<ProductFromDB>(productsCollection as Query | null);
 
+    // Fetch bestsellers
+    const bestsellersCollection = useMemoFirebase(() => {
+        if (!firestore) return null;
+        return collection(firestore, 'bestsellers');
+    }, [firestore]);
+
+    const { data: rawBestsellers, isLoading: bestsellersLoading, error: bestsellersError } = useCollection<ProductFromDB>(bestsellersCollection as Query | null);
+
+    // Transform products
     const products = useMemo(() => {
         if (!rawProducts) return [];
         return rawProducts
-            .map(p => transformProduct(p as ProductFromDB & { id: string }))
+            .map(p => transformProduct(p as ProductFromDB & { id: string }, 'products'))
             .filter((p): p is ProductType => p !== null);
     }, [rawProducts]);
 
+    // Transform bestsellers
+    const bestsellers = useMemo(() => {
+        if (!rawBestsellers) return [];
+        return rawBestsellers
+            .map(p => transformProduct(p as ProductFromDB & { id: string }, 'bestsellers'))
+            .filter((p): p is ProductType => p !== null);
+    }, [rawBestsellers]);
+
+    // Combine all products (products + bestsellers) with deduplication by ID
+    const allProducts = useMemo(() => {
+        const productMap = new Map<string, ProductType>();
+        
+        // Add regular products first
+        products.forEach(p => productMap.set(p.id, p));
+        
+        // Add bestsellers (override with bestseller version if same ID exists)
+        bestsellers.forEach(p => {
+            const existing = productMap.get(p.id);
+            if (existing) {
+                // Merge with bestseller flag
+                productMap.set(p.id, { ...existing, isBestseller: true });
+            } else {
+                productMap.set(p.id, p);
+            }
+        });
+        
+        return Array.from(productMap.values());
+    }, [products, bestsellers]);
+
+    const isLoading = productsLoading || bestsellersLoading;
+    const error = productsError || bestsellersError;
+
     const value = {
-        products,
+        products: allProducts, // Combined array with all products
+        bestsellers, // Separate array of only bestsellers
         isLoading,
         error: error as Error | null,
     };

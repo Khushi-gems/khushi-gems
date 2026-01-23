@@ -8,14 +8,17 @@ export type Product = {
   id: string;
   name: string;
   price: number;
-  imageUrl: string; // for product card
-  imageHint: string; // for product card
-  images: ProductImage[]; // for product page
+  imageUrls: string[];
+  imageUrl?: string;
+  availability: 'READY TO SHIP' | 'MADE TO ORDER';
+  imageHint: string; 
+  images: ProductImage[]; 
   tag?: string;
   slug: string;
   category: string;
   description: string;
   material: 'Gold' | 'Silver';
+  isBestseller?: boolean;
 };
 
 export type Category = {

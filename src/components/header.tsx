@@ -51,7 +51,7 @@ export function Header() {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-     setMobileMenuOpen(false);
+      setMobileMenuOpen(false);
   };
 
   // Button Logic: 
@@ -60,13 +60,16 @@ export function Header() {
   const toggleButtonText = isGoldPage ? "Silver Jewellery" : "Gold Jewellery";
   const toggleButtonLink = isGoldPage ? "/" : "/gold";
   const toggleButtonStyles = isGoldPage
-    ? "bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 text-slate-900 hover:from-slate-300 hover:to-slate-500" // Removed ring-slate-400
-    : "bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-yellow-900 hover:from-yellow-300 hover:to-yellow-500"; // Removed ring-yellow-400
+    ? "bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 text-slate-900 hover:from-slate-300 hover:to-slate-500"
+    : "bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-yellow-900 hover:from-yellow-300 hover:to-yellow-500";
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/20 bg-primary text-primary-foreground backdrop-blur-sm">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
-        <div className="lg:hidden">
+      {/* Added 'relative' to container so the absolute nav centers correctly within it */}
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 relative">
+        
+        {/* Mobile Menu Button - Hidden on lg screens */}
+        <div className="lg:hidden flex-shrink-0">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -75,53 +78,56 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[80vw] p-0 flex flex-col">
-               <SheetHeader className="p-4 border-b border-black/10">
-                 <VisuallyHidden>
-                    <SheetTitle>Menu</SheetTitle>
-                 </VisuallyHidden>
-                 <Logo />
-               </SheetHeader>
-               <ScrollArea className="flex-grow">
-                 <nav className="p-4 flex flex-col gap-4">
-                  <p className="font-bold">Shop</p>
-                  {currentCategories.map((category: Category) => (
-                     <Link 
-                       key={category.name} 
-                       href={isGoldPage ? `/gold/${encodeURIComponent(category.name)}` : `/category/${encodeURIComponent(category.name)}`}
-                       className="text-muted-foreground hover:text-foreground" 
-                       onClick={() => setMobileMenuOpen(false)}
-                     >
-                       {category.name}
-                     </Link>
-                  ))}
-                   <Link href="/collections" className="font-bold text-sm mt-4" onClick={() => setMobileMenuOpen(false)}>EXHIBITIONS</Link>
-                   <Link href="/about" className="font-bold text-sm">ABOUT US</Link>
-                   <Link href="/#reviews-anchor" onClick={(e) => handleScroll(e, '#reviews-anchor')} className="font-bold text-sm">REVIEWS</Link>
-                   <Link href="/location" className="font-bold text-sm">LOCATION</Link>
+                <SheetHeader className="p-4 border-b border-black/10">
+                  <VisuallyHidden>
+                     <SheetTitle>Menu</SheetTitle>
+                  </VisuallyHidden>
+                  <Logo />
+                </SheetHeader>
+                <ScrollArea className="flex-grow">
+                  <nav className="p-4 flex flex-col gap-4">
+                   <p className="font-bold">Shop</p>
+                   {currentCategories.map((category: Category) => (
+                      <Link 
+                        key={category.name} 
+                        href={isGoldPage ? `/gold/${encodeURIComponent(category.name)}` : `/category/${encodeURIComponent(category.name)}`}
+                        className="text-muted-foreground hover:text-foreground" 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {category.name}
+                      </Link>
+                   ))}
+                    <Link href="/collections" className="font-bold text-sm mt-4" onClick={() => setMobileMenuOpen(false)}>EXHIBITIONS</Link>
+                    <Link href="/about" className="font-bold text-sm">ABOUT US</Link>
+                    <Link href="/#reviews-anchor" onClick={(e) => handleScroll(e, '#reviews-anchor')} className="font-bold text-sm">REVIEWS</Link>
+                    <Link href="/location" className="font-bold text-sm">LOCATION</Link>
 
-                   <div className="border-t border-black/10 mt-4 pt-4 flex flex-col gap-4">
+                    <div className="border-t border-black/10 mt-4 pt-4 flex flex-col gap-4">
                       <Link href="/wishlist" className="font-bold text-sm flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                         <Heart className="h-5 w-5" /> Wishlist
                       </Link>
                       <Link href="/account" className="font-bold text-sm flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                         <User className="h-5 w-5" /> My Account
                       </Link>
-                   </div>
-                 </nav>
-               </ScrollArea>
+                    </div>
+                  </nav>
+                </ScrollArea>
             </SheetContent>
           </Sheet>
         </div>
 
-        <div className="flex items-center">
+        {/* Logo - Centered for mobile, Left for Desktop */}
+        <div className={cn(
+          "flex items-center absolute left-1/2 transform -translate-x-1/2 lg:static lg:left-auto lg:transform-none"
+        )}>
           <Logo />
         </div>
 
-        <nav className="hidden lg:flex lg:items-center">
+        {/* Desktop Navigation - Centered Absolutely */}
+        <nav className="hidden lg:flex lg:items-center absolute left-1/2 transform -translate-x-1/2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                {/* Updated Trigger: transparent background to avoid black box */}
                 <NavigationMenuTrigger 
                    className="font-bold text-sm bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-primary-foreground"
                 >
@@ -129,7 +135,7 @@ export function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid w-auto min-w-[400px] grid-cols-2 gap-x-12 gap-y-6 p-6">
-                    {/* CATEGORIES COLUMN - Dynamically shows Gold or Silver categories */}
+                    {/* CATEGORIES COLUMN */}
                     <div className="flex flex-col">
                       <h3 className="mb-4 font-bold font-body text-base text-foreground">
                         CATEGORIES
@@ -152,20 +158,20 @@ export function Header() {
 
                     {/* MATERIALS COLUMN */}
                     <div className="flex flex-col">
-                       <h3 className="mb-4 font-bold font-body text-base text-foreground">
+                        <h3 className="mb-4 font-bold font-body text-base text-foreground">
                         MATERIALS
                       </h3>
                       <ul className="flex flex-col gap-2">
-                         <li>
+                          <li>
                             <NavigationMenuLink asChild>
                               <Link href="/gold" className="text-sm text-muted-foreground hover:text-foreground">Gold</Link>
                             </NavigationMenuLink>
-                         </li>
-                         <li>
+                          </li>
+                          <li>
                             <NavigationMenuLink asChild>
                               <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">Silver</Link>
                             </NavigationMenuLink>
-                         </li>
+                          </li>
                       </ul>
                     </div>
                   </div>
@@ -195,6 +201,7 @@ export function Header() {
           </NavigationMenu>
         </nav>
 
+        {/* Right side icons and button */}
         <div className="flex items-center gap-1 md:gap-2">
           <Button variant="ghost" size="icon" onClick={() => setIsCartOpen(true)}>
             <div className="relative">
@@ -227,15 +234,21 @@ export function Header() {
             </Link>
           </Button>
             
-            {/* Toggle Button: Removed 'ring' conditions so size is consistent */}
-            <Button asChild className={cn(
-              "inline-flex flex-shrink-0 rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-300 text-xs px-3 h-8 md:text-sm md:px-4 md:h-auto",
-              toggleButtonStyles
-            )}>
-              <Link href={toggleButtonLink}>
-                 {toggleButtonText}
-              </Link>
-            </Button>
+          {/* Toggle Button */}
+          <Button asChild className={cn(
+            "inline-flex flex-shrink-0 rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-300",
+            "text-xs px-2 h-7 lg:text-sm lg:px-4 lg:h-auto",
+            toggleButtonStyles
+          )}>
+            <Link href={toggleButtonLink}>
+              <span className="lg:hidden">
+                {isGoldPage ? "Silver" : "Gold"}
+              </span>
+              <span className="hidden lg:inline">
+                {toggleButtonText}
+              </span>
+            </Link>
+          </Button>
         </div>
       </div>
       <CartDrawer />

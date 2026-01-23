@@ -14,10 +14,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
 import { ImageMarquee } from '@/components/image-marquee';
-// Use silverCategories here
-import { heroSlides, silverCategories, collections, reviews, instagramPosts, silverBestsellers } from '@/lib/data';
+import { heroSlides, silverCategories, collections, reviews, instagramPosts } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Star, Quote, Instagram, Leaf } from 'lucide-react';
+import { Star, Quote, Instagram, Leaf, Loader2 } from 'lucide-react';
 import Autoplay from "embla-carousel-autoplay"
 import { Marquee } from '@/components/marquee';
 import { ExhibitionCarousel } from '@/components/exhibition-carousel';
@@ -63,8 +62,14 @@ const characterAnimation = {
 export default function Home() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isLoading } = useProducts();
-  const bestsellers = silverBestsellers;
+  const { bestsellers, isLoading: isProductsLoading } = useProducts();
+
+  // ADDED: Filter to show only Silver bestsellers on the home page
+  // This matches the 'silverCategories' used in the section above
+  const displayedBestsellers = useMemo(() => 
+    bestsellers.filter(p => p.material === 'Silver'), 
+    [bestsellers]
+  );
 
   useEffect(() => {
     if (!carouselApi) {
@@ -81,11 +86,11 @@ export default function Home() {
     };
   }, [carouselApi]);
 
-  if (isLoading) {
+  if (isProductsLoading) {
       return (
         <div className="flex flex-col justify-center items-center h-screen">
           <LoadingLogo size={96} />
-          <p className="mt-4 text-muted-foreground">Loading Silver Collection...</p>
+          <p className="mt-4 text-muted-foreground">Loading Collection...</p>
         </div>
       );
   }
@@ -185,40 +190,47 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Rest of the file remains exactly the same as provided, just ensure imports match */}
-      {/* ... Bestsellers, About Us, Marquee, Exhibitions, Reviews, Instagram ... */}
       <motion.section className="w-full bg-secondary/50 py-16 md:py-24" data-ai-hint="bestsellers carousel" {...sectionAnimation}>
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-center font-headline text-3xl md:text-4xl mb-2">Our Bestsellers</h2>
             <p className="text-center text-muted-foreground mb-8">Timeless pieces, handcrafted with love</p>
-            <Carousel 
-              opts={{ align: 'start', loop: true }} 
-              plugins={[
-                Autoplay({
-                  delay: 4000,
-                  stopOnInteraction: true,
-                }),
-              ]}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {bestsellers.map((product) => (
-                  <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
-                    <ProductCard product={product} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="hidden md:block">
-                <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
-                <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
-              </div>
-            </Carousel>
+            
+            {isProductsLoading ? (
+               <div className="flex justify-center items-center h-48">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+               </div>
+            ) : displayedBestsellers && displayedBestsellers.length > 0 ? (
+                <Carousel 
+                  opts={{ align: 'start', loop: true }} 
+                  plugins={[
+                    Autoplay({
+                      delay: 4000,
+                      stopOnInteraction: true,
+                    }),
+                  ]}
+                  className="w-full"
+                >
+                  <CarouselContent className="-ml-4">
+                    {/* CHANGED: Use displayedBestsellers instead of bestsellers */}
+                    {displayedBestsellers.slice(0, 8).map((product) => (
+                      <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
+                        <ProductCard product={product} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="hidden md:block">
+                    <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
+                    <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
+                  </div>
+                </Carousel>
+            ) : (
+                <p className="text-center text-muted-foreground">No bestseller products found.</p>
+            )}
           </div>
         </div>
       </motion.section>
       
-      {/* ... (Previous code for Introduction, Marquee, Exhibition, Reviews, Instagram sections) ... */}
        <motion.section className="container mx-auto px-4" data-ai-hint="introduction section" {...sectionAnimation}>
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
           <motion.div className="w-full md:w-1/2 lg:w-1/3 overflow-hidden rounded-lg group" {...itemAnimation}>
@@ -233,9 +245,9 @@ export default function Home() {
           </motion.div>
           <motion.div className="w-full md:w-1/2 lg:w-2/3 text-left" {...itemAnimation}>
             <h2 className="font-headline text-3xl md:text-4xl mb-4">About Us</h2>
-            <p className="font-bold text-lg mb-4">Khushi Gems & Jewels – A Legacy of Jaipur’s Timeless Craftsmanship</p>
+            <p className="font-bold text-lg mb-4">Khushi Gems & Jewels – A Legacy of Jaipur's Timeless Craftsmanship</p>
             <div className="space-y-4 text-base text-foreground/80">
-              <p>Rooted in the heart of the Old Pink City, Khushi Gems & Jewels stands as a proud custodian of Jaipur’s rich jewellery heritage. With over <b>25 years of excellence</b>, our journey began in Johari Bazar, near the iconic Hawa Mahal, where <b>artistry, culture, and craftsmanship</b> come together to create jewellery that transcends time.</p>
+              <p>Rooted in the heart of the Old Pink City, Khushi Gems & Jewels stands as a proud custodian of Jaipur's rich jewellery heritage. With over <b>25 years of excellence</b>, our journey began in Johari Bazar, near the iconic Hawa Mahal, where <b>artistry, culture, and craftsmanship</b> come together to create jewellery that transcends time.</p>
               <p>Every creation at Khushi Gems & Jewels reflects the soul of Rajasthan—its regal history, intricate architecture, vibrant colours, and royal traditions. <b>Inspired by the grandeur of Rajasthani culture and the timeless beauty of Jaipur</b>, our designs celebrate heritage while embracing contemporary elegance.</p>
               <Button variant="link" asChild className="p-0 text-base font-bold text-black">
                 <Link href="/about">Read Our Story</Link>

@@ -7,8 +7,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
 import { useProducts } from "@/components/product-provider";
-// Updated import to include static bestsellers
-import { ringSizes, ringSizeGuide, ringSizeGuideInches, silverBestsellers, goldBestsellers } from "@/lib/data";
+// FIX: Removed deleted static bestsellers imports
+import { ringSizes, ringSizeGuide, ringSizeGuideInches } from "@/lib/data";
 import { ProductCard } from "@/components/product-card";
 import {
   Carousel,
@@ -88,14 +88,9 @@ export default function ProductPage() {
   
   const { products: allProducts, isLoading } = useProducts();
 
-  // FIX: Check both dynamic (Firestore) and static (hardcoded) data
+  // FIX: Look up product ONLY in the dynamic list
   const product = useMemo(() => {
-    // 1. Try to find in dynamic list (Firestore)
-    const dynamicProduct = allProducts.find((p) => p.slug === slug);
-    if (dynamicProduct) return dynamicProduct;
-
-    // 2. If not found, try to find in static lists (src/lib/data.ts)
-    return [...silverBestsellers, ...goldBestsellers].find(p => p.slug === slug);
+    return allProducts.find((p) => p.slug === slug);
   }, [allProducts, slug]);
 
   const [activeImage, setActiveImage] = useState(product?.images[0]);
@@ -104,12 +99,11 @@ export default function ProductPage() {
   const [customSize, setCustomSize] = useState('');
   
   useMemo(() => {
-      if(product) {
+      if(product && product.images && product.images.length > 0) {
           setActiveImage(product.images[0]);
       }
   }, [product]);
 
-  // Only show loading screen if we are waiting for DB AND we couldn't find the product in static files
   if (isLoading && !product) {
     return (
         <div className="flex justify-center items-center h-screen">
@@ -119,7 +113,9 @@ export default function ProductPage() {
   }
 
   if (!product || !activeImage) {
-    notFound();
+    // If we have products loaded but still can't find this one, it doesn't exist.
+    if (!isLoading) notFound();
+    return null; // Don't render while loading
   }
 
   const inWishlist = isItemInWishlist(product.id);
@@ -155,8 +151,10 @@ export default function ProductPage() {
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 5);
 
-  const bestsellers = allProducts.filter(p => p.material === product.material).slice(0, 8);
-
+  // FIX: Filter mostly by the 'isBestseller' flag we added earlier
+  const bestsellers = allProducts
+    .filter(p => p.material === product.material && p.isBestseller)
+    .slice(0, 8);
 
   return (
     <motion.div 
@@ -417,20 +415,23 @@ export default function ProductPage() {
         </Carousel>
       </motion.div>
 
-      <motion.div className="mt-24" {...sectionAnimation}>
-        <h2 className="font-headline text-3xl text-center mb-8">Bestsellers</h2>
-        <Carousel opts={{ align: 'start', loop: true }} className="w-full">
-          <CarouselContent className="-ml-4">
-            {bestsellers.map((p) => (
-              <CarouselItem key={p.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
-                <ProductCard product={p} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-           <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
-        </Carousel>
-      </motion.div>
+      {/* Only show this section if we found dynamic bestsellers */}
+      {bestsellers.length > 0 && (
+          <motion.div className="mt-24" {...sectionAnimation}>
+            <h2 className="font-headline text-3xl text-center mb-8">Bestsellers</h2>
+            <Carousel opts={{ align: 'start', loop: true }} className="w-full">
+              <CarouselContent className="-ml-4">
+                {bestsellers.map((p) => (
+                  <CarouselItem key={p.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
+                    <ProductCard product={p} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          </motion.div>
+      )}
     </motion.div>
   );
 }
