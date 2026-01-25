@@ -245,6 +245,91 @@ export const ringSizeGuide: RingSizeGuideEntry[] = [
 // Ring Size Guide Inches removed for brevity but can be kept as is in your file. 
 export const ringSizeGuideInches: RingSizeGuideEntryInches[] = [
     { insideDiameterIn: "0.458", insideCircumferenceIn: "1.44", usCanadaMexico: "0", ukAustralia: "", eastAsia: "", india: "", italySpainSwitzerland: "" },
-    // ... (rest of the array content)
+   
 ];
 
+
+
+export const silverInstagramPosts: InstagramPost[] = [
+  { 
+    id: 1, 
+    imageUrl: "https://i.ibb.co/9kVLGvLy/Whats-App-Image-2026-01-25-at-8-13-39-PM.jpg", 
+    imageHint: 'silver reel 1', 
+    slug: 'https://www.instagram.com/reel/DLnIlzLzjJq/?igsh=MWE4aDZwZ3dwbXV1cw==' 
+  },
+  { 
+    id: 2, 
+    imageUrl: "https://i.ibb.co/1YMfL4mq/Whats-App-Image-2026-01-25-at-8-13-40-PM.jpg", 
+    imageHint: 'silver reel 2', 
+    slug: 'https://www.instagram.com/reel/DMaYXVjzUKc/?igsh=NTJtY2NyNWNmMnVr' 
+  },
+  { 
+    id: 3, 
+    imageUrl: "https://i.ibb.co/YJnZNzd/Whats-App-Image-2026-01-25-at-8-13-40-PM-1.jpg", 
+    imageHint: 'silver post 3', 
+    slug: 'https://www.instagram.com/p/DMKsfXNzNSv/?igsh=MXZlaDhzNmtndGh2OQ==' 
+  },
+  { 
+    id: 4, 
+    imageUrl: "https://i.ibb.co/x93CtB8/Whats-App-Image-2026-01-25-at-8-13-40-PM-2.jpg", 
+    imageHint: 'silver post 4', 
+    slug: 'https://www.instagram.com/p/DLmLK36TzVY/?igsh=MWowdW1mb3F1eDBrbw==' 
+  },
+  { 
+    id: 5, 
+    imageUrl: "https://i.ibb.co/B2gprMGw/Whats-App-Image-2026-01-25-at-8-13-40-PM-3.jpg", 
+    imageHint: 'silver reel 5', 
+    slug: 'https://www.instagram.com/reel/DLelsr6TZ03/?igsh=MTF5aDU5ZzZqenZz' 
+  },
+  { 
+    id: 6, 
+    imageUrl: "https://i.ibb.co/8Lr2gt3V/Screenshot-2026-01-25-201726.png", 
+    imageHint: 'silver post 6', 
+    slug: 'https://www.instagram.com/p/DLZohcyzmI1/?igsh=aTMzOGI2Mm5oNHh1' 
+  },
+  { 
+    id: 7, 
+    imageUrl: "https://i.ibb.co/Z6gj0zJk/Whats-App-Image-2026-01-25-at-8-13-41-PM.jpg", 
+    imageHint: 'silver reel 7', 
+    slug: 'https://www.instagram.com/reel/DKMrMcTTrXp/?igsh=MW8zdW5lMWRwY212cA==' 
+  },
+];
+
+export const goldInstagramPosts: InstagramPost[] = [
+  { 
+    id: 1, 
+    imageUrl: "https://i.ibb.co/r2Q5qY55/Whats-App-Image-2026-01-25-at-8-05-58-PM.jpg", 
+    imageHint: 'gold reel 1', 
+    slug: 'https://www.instagram.com/reel/DKbJvzfxHd6/?igsh=MThicXhubzNiN3I1Ng==' 
+  },
+  { 
+    id: 2, 
+    imageUrl: "https://i.ibb.co/4gRMQzz8/Whats-App-Image-2026-01-25-at-8-05-58-PM-1.jpg", 
+    imageHint: 'gold reel 2', 
+    slug: 'https://www.instagram.com/reel/DQ9Sf5zD1Kg/?igsh=c3llYnB6N3FqaGJy' 
+  },
+  { 
+    id: 3, 
+    imageUrl: "https://i.ibb.co/0RsYyYzG/Whats-App-Image-2026-01-25-at-8-05-59-PM.jpg", 
+    imageHint: 'gold reel 3', 
+    slug: 'https://www.instagram.com/reel/DSMWgPRDylH/?igsh=MWRtdmU5M2VsYXliZg==' 
+  },
+  { 
+    id: 4, 
+    imageUrl: "https://i.ibb.co/ZRKR1HRS/Whats-App-Image-2026-01-25-at-8-05-59-PM-1.jpg",
+    imageHint: 'gold reel 4', 
+    slug: 'https://www.instagram.com/reel/DSRiPmQD4YJ/?igsh=anhjMmljaDhqMWdp' 
+  },
+  { 
+    id: 5, 
+    imageUrl: "https://i.ibb.co/S71HQPCs/Whats-App-Image-2026-01-25-at-8-05-59-PM-2.jpg", 
+    imageHint: 'gold reel 5', 
+    slug: 'https://www.instagram.com/reel/DSCCrScj-h0/?igsh=MWZ3OTNxam9jeTFyaQ==' 
+  },
+  { 
+    id: 6, 
+    imageUrl: "https://i.ibb.co/m5VjrZs8/Whats-App-Image-2026-01-25-at-8-06-00-PM.jpg", 
+    imageHint: 'gold post 6', 
+    slug: 'https://www.instagram.com/p/DNmuzVqxNwH/?img_index=1&igsh=bGF5dWc4ZXFscGVj' 
+  },
+];

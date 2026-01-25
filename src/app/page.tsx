@@ -14,16 +14,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
 import { ImageMarquee } from '@/components/image-marquee';
-import { heroSlides, silverCategories, collections, reviews, instagramPosts } from '@/lib/data';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Star, Quote, Instagram, Leaf, Loader2 } from 'lucide-react';
+import { heroSlides, silverCategories, collections, silverInstagramPosts } from '@/lib/data';
+import { Instagram, Loader2 } from 'lucide-react';
 import Autoplay from "embla-carousel-autoplay"
 import { Marquee } from '@/components/marquee';
 import { ExhibitionCarousel } from '@/components/exhibition-carousel';
+import ReviewsSection from "@/components/reviews-section"; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
 import { useProducts } from '@/components/product-provider';
 import { LoadingLogo } from '@/components/loading-logo';
+
 
 const sectionAnimation = {
   initial: { opacity: 0, y: 50 },
@@ -64,8 +65,6 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { bestsellers, isLoading: isProductsLoading } = useProducts();
 
-  // ADDED: Filter to show only Silver bestsellers on the home page
-  // This matches the 'silverCategories' used in the section above
   const displayedBestsellers = useMemo(() => 
     bestsellers.filter(p => p.material === 'Silver'), 
     [bestsellers]
@@ -163,7 +162,7 @@ export default function Home() {
       </motion.section>
 
       <motion.section className="container mx-auto px-4" data-ai-hint="shop by category" {...sectionAnimation}>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7.5xl mx-auto">
           <h2 className="text-center font-headline text-3xl md:text-4xl mb-8">Shop by Category</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {silverCategories.map((category) => (
@@ -212,7 +211,6 @@ export default function Home() {
                   className="w-full"
                 >
                   <CarouselContent className="-ml-4">
-                    {/* CHANGED: Use displayedBestsellers instead of bestsellers */}
                     {displayedBestsellers.slice(0, 8).map((product) => (
                       <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
                         <ProductCard product={product} />
@@ -279,80 +277,33 @@ export default function Home() {
           </div>
       </motion.section>
       
-      <div id="reviews-anchor"></div>
-      <motion.section id="reviews" className="w-full bg-background py-12 md:py-16" data-ai-hint="customer reviews" {...sectionAnimation}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-                <Leaf className="mx-auto h-8 w-8 text-primary/50 mb-2" />
-                <h2 className="text-center font-headline text-3xl md:text-4xl">Real People. Real Results.</h2>
-                <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Honest stories from real clients who've experienced powerful growth, clarity, and transformation through coaching.</p>
-            </div>
-            <Carousel 
-                opts={{ align: 'start', loop: true }}
-                plugins={[ Autoplay({ delay: 5000, stopOnInteraction: true }) ]}
-                className="w-full"
-            >
-                <CarouselContent className="-ml-4">
-                  {reviews.map((review) => (
-                    <CarouselItem key={review.id} className="basis-full md:basis-1/2 lg:basis-1/3 pl-4">
-                       <Card className="bg-secondary/50 border-black/10 shadow-lg h-full">
-                          <CardContent className="p-8 text-left flex flex-col h-full relative">
-                            <div className="flex items-start justify-between mb-6">
-                               <div className="flex items-center gap-4">
-                                  <Avatar>
-                                    <AvatarImage src={review.avatarUrl} alt={review.name} data-ai-hint="person avatar" />
-                                    <AvatarFallback>{review.name.charAt(0)}</AvatarFallback>
-                                  </Avatar>
-                                  <div>
-                                      <p className="font-bold text-sm">{review.name}</p>
-                                      <p className="text-xs text-muted-foreground">Client</p>
-                                  </div>
-                               </div>
-                                <div className="flex text-primary">
-                                  {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-current" />)}
-                                </div>
-                            </div>
-                            <p className="text-foreground/80 mb-6 italic flex-grow text-base leading-relaxed">"{review.comment}"</p>
-                            <Quote className="w-16 h-16 text-primary/10 absolute bottom-4 right-4" />
-                          </CardContent>
-                        </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="hidden md:block">
-                  <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2" />
-                  <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2" />
-                </div>
-              </Carousel>
-          </div>
-        </div>
-      </motion.section>
+      <ReviewsSection />
       
       <motion.section className="bg-secondary/50 py-16 md:py-24" data-ai-hint="instagram feed" {...sectionAnimation}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="font-headline text-3xl md:text-4xl mb-2">Follow us on Instagram</h2>
-              <p className="text-muted-foreground">@khushigemsandjewellery</p>
-            </div>
-            <ImageMarquee baseVelocity={-2}>
-                {instagramPosts.map((post) => (
-                   <Link href={post.slug} key={post.id} target="_blank" rel="noopener noreferrer">
-                    <div className="relative aspect-square w-48 md:w-72 overflow-hidden rounded-lg group mx-4">
-                      <Image
-                        src={post.imageUrl}
-                        alt="Instagram post"
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        data-ai-hint={post.imageHint}
-                      />
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Instagram className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+  <div className="container mx-auto px-4">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="font-headline text-3xl md:text-4xl mb-2">Follow us on Instagram</h2>
+        <p className="text-muted-foreground">@khushigemsandjewellery</p>
+      </div>
+      <ImageMarquee baseVelocity={-2}>
+          {/* USE silverInstagramPosts HERE */}
+          {silverInstagramPosts.map((post) => (
+              <Link href={post.slug} key={post.id} target="_blank" rel="noopener noreferrer">
+              <div className="relative aspect-square w-48 md:w-72 overflow-hidden rounded-lg group mx-4">
+                <Image
+                  src={post.imageUrl}
+                  alt="Instagram post"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  data-ai-hint={post.imageHint}
+                />
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Instagram className="h-8 w-8 text-white" />
+                </div>
+              </div>
+            </Link>
+          ))}
             </ImageMarquee>
              <div className="text-center mt-8">
                <Button asChild>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { goldCategories, goldBannerSlides, instagramPosts } from "@/lib/data";
+import { goldCategories, goldBannerSlides, goldInstagramPosts } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -164,29 +164,30 @@ export default function GoldPage() {
       </motion.section>
 
       <motion.section className="bg-secondary/50 py-16 md:py-24" data-ai-hint="instagram feed" {...sectionAnimation}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="font-headline text-3xl md:text-4xl mb-2">Follow us on Instagram</h2>
-              <p className="text-muted-foreground">@khushigemsandjewellery</p>
-            </div>
-            <ImageMarquee baseVelocity={-2}>
-                {instagramPosts.map((post) => (
-                   <Link href={post.slug} key={post.id} target="_blank" rel="noopener noreferrer">
-                    <div className="relative aspect-square w-48 md:w-72 overflow-hidden rounded-lg group mx-4">
-                      <Image
-                        src={post.imageUrl}
-                        alt="Instagram post"
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        data-ai-hint={post.imageHint}
-                      />
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Instagram className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+  <div className="container mx-auto px-4">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="font-headline text-3xl md:text-4xl mb-2">Follow us on Instagram</h2>
+        <p className="text-muted-foreground">@khushigemsandjewellery</p>
+      </div>
+      <ImageMarquee baseVelocity={-2}>
+          {/* USE goldInstagramPosts HERE */}
+          {goldInstagramPosts.map((post) => (
+              <Link href={post.slug} key={post.id} target="_blank" rel="noopener noreferrer">
+              <div className="relative aspect-square w-48 md:w-72 overflow-hidden rounded-lg group mx-4">
+                <Image
+                  src={post.imageUrl}
+                  alt="Instagram post"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  data-ai-hint={post.imageHint}
+                />
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Instagram className="h-8 w-8 text-white" />
+                </div>
+              </div>
+            </Link>
+          ))}
             </ImageMarquee>
              <div className="text-center mt-8">
                <Button asChild>

@@ -217,9 +217,10 @@ export default function ProductPage() {
             </div>
           )}
           
-          {(product as any).stockQuantity !== undefined && product.availability === 'READY TO SHIP' && (
-             <p className="text-sm text-muted-foreground mb-2">Current Stock: {(product as any).stockQuantity}</p>
-          )}
+          {(product as any).stockQuantity !== undefined &&
+  product.availability === 'READY TO SHIP' &&
+  null}
+
 
           <p className="text-base text-foreground/80 mb-6">
             {product.description}
