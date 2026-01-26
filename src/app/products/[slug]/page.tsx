@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { notFound, useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,6 +40,14 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { LoadingLogo } from "@/components/loading-logo";
 
+// --- FIREBASE IMPORTS ---
+import { collection, getDocs } from "firebase/firestore";
+import { initializeFirebase } from "@/firebase";
+
+// Helper function to re-create the slug from a name (Matches provider logic)
+const generateSlug = (name: string) => {
+  return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+};
 
 function Breadcrumbs({ product }: { product: Product }) {
   const categoryPath = product.material === 'Gold' ? `/gold/${encodeURIComponent(product.category)}` : `/category/${encodeURIComponent(product.category)}`;
@@ -64,38 +72,157 @@ const sectionAnimation = {
 
 export default function ProductPage() {
   const params = useParams();
-  const slug = typeof params.slug === "string" ? params.slug : "";
+  
+  // Ensure slug is a string and decoded
+  const rawSlug = params?.slug;
+  const slug = decodeURIComponent(
+    Array.isArray(rawSlug) ? rawSlug[0] : (rawSlug || "")
+  );
+
   const { addItem } = useCart();
   const { toast } = useToast();
   const { addToWishlist, removeFromWishlist, isItemInWishlist } = useWishlist();
   
-  const { products: allProducts, isLoading } = useProducts();
+  const { products: allProducts, isLoading: isContextLoading } = useProducts();
 
-  const product = useMemo(() => {
+  // 1. Try to find product in the global context
+  const contextProduct = useMemo(() => {
+    if (!slug) return undefined;
     return allProducts.find((p) => p.slug === slug);
   }, [allProducts, slug]);
 
-  const [activeImage, setActiveImage] = useState(product?.images[0]);
+  const [directProduct, setDirectProduct] = useState<Product | null>(null);
+  const [isDirectLoading, setIsDirectLoading] = useState(true);
+
+  // 2. Fallback Fetch Logic (Searches Products AND Bestsellers)
+  useEffect(() => {
+    if (!slug) return;
+
+    // If found in context, stop loading
+    if (contextProduct) {
+        setIsDirectLoading(false);
+        return;
+    }
+
+    // Wait for context to try first
+    if (isContextLoading) return;
+
+    const fetchAndFindProduct = async () => {
+        setIsDirectLoading(true);
+        console.log(`🔍 Searching for slug: "${slug}" in database...`);
+        try {
+            const { firestore } = initializeFirebase();
+            const productsRef = collection(firestore, 'products');
+            const bestsellersRef = collection(firestore, 'bestsellers');
+            
+            // Fetch BOTH collections
+            const [productsSnap, bestsellersSnap] = await Promise.all([
+                getDocs(productsRef),
+                getDocs(bestsellersRef)
+            ]);
+            
+            let foundDoc = null;
+            let foundData = null;
+            let isBestseller = false;
+
+            // Helper to check a snapshot
+            const checkSnapshot = (snapshot: any, fromBestseller: boolean) => {
+                for (const doc of snapshot.docs) {
+                    const data = doc.data();
+                    const dbSlug = data.slug || generateSlug(data.name || '');
+                    if (dbSlug === slug) {
+                        return { doc, data, isBestseller: fromBestseller };
+                    }
+                }
+                return null;
+            };
+
+            // Check Products first, then Bestsellers
+            const match = checkSnapshot(productsSnap, false) || checkSnapshot(bestsellersSnap, true);
+
+            if (match) {
+                foundDoc = match.doc;
+                foundData = match.data;
+                isBestseller = match.isBestseller;
+                console.log(`✅ Found product in ${isBestseller ? 'Bestsellers' : 'Products'} collection.`);
+            }
+            
+            if (foundDoc && foundData) {
+                // Construct product object manually
+                const productData: any = {
+                    id: foundDoc.id,
+                    name: foundData.name,
+                    price: Number(foundData.price) || 0,
+                    slug: slug, 
+                    description: foundData.description || '',
+                    category: foundData.category || 'Uncategorized',
+                    material: foundData.material || (foundData.type?.toLowerCase().includes('gold') ? 'Gold' : 'Silver'),
+                    availability: foundData.availability || 'READY TO SHIP',
+                    stockQuantity: Number(foundData.stockQuantity) || 0,
+                    isBestseller: isBestseller,
+                    tag: foundData.availability || 'READY TO SHIP',
+                    images: [],
+                    imageUrl: ''
+                };
+
+                // Handle images
+                let images = [];
+                if (Array.isArray(foundData.imageUrls) && foundData.imageUrls.length > 0) {
+                     images = foundData.imageUrls.map((url: string) => ({ url, hint: foundData.name }));
+                } else if (foundData.imageUrl) {
+                     images = [{ url: foundData.imageUrl, hint: foundData.name }];
+                }
+                
+                if(images.length === 0) images.push({ url: "https://placehold.co/600x400?text=No+Image", hint: "No Image" });
+
+                productData.images = images;
+                productData.imageUrl = images[0].url;
+
+                setDirectProduct(productData as Product);
+            } else {
+                console.warn(`❌ Product not found in ANY collection for slug: ${slug}`);
+            }
+        } catch (error) {
+            console.error("Manual fetch error:", error);
+        } finally {
+            setIsDirectLoading(false);
+        }
+    };
+
+    fetchAndFindProduct();
+
+  }, [slug, contextProduct, isContextLoading]);
+
+  const product = contextProduct || directProduct;
+  
+  // Loading state
+  const isLoading = isContextLoading || (isDirectLoading && !product);
+
+  // --- FIX START: ACTIVE IMAGE LOGIC ---
+  // We use a state for USER selection, but fall back to the product's first image automatically.
+  // This prevents activeImage from being null on the first render after data load.
+  const [userSelectedImage, setUserSelectedImage] = useState<any>(null);
+  
+  // The active image is either what the user clicked, or the first image of the product
+  const activeImage = userSelectedImage || (product?.images && product.images.length > 0 ? product.images[0] : null);
+  // --- FIX END ---
+
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('');
   const [customSize, setCustomSize] = useState('');
-  
-  useMemo(() => {
-      if(product && product.images && product.images.length > 0) {
-          setActiveImage(product.images[0]);
-      }
-  }, [product]);
 
-  if (isLoading && !product) {
+  if (isLoading) {
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col gap-4 justify-center items-center h-screen">
             <LoadingLogo />
         </div>
     );
   }
 
+  // Robust check: We need a product AND an active image to render
   if (!product || !activeImage) {
-    if (!isLoading) notFound();
+    console.warn("⛔ Triggering 404. Product found:", !!product, "Image found:", !!activeImage);
+    notFound();
     return null; 
   }
 
@@ -187,12 +314,13 @@ export default function ProductPage() {
                     "relative h-16 w-16 rounded-md overflow-hidden ring-2 ring-transparent transition shrink-0",
                     activeImage.url === image.url && "ring-primary"
                   )}
-                  onClick={() => setActiveImage(image)}
+                  onClick={() => setUserSelectedImage(image)} // Update user selection
                 >
                   <Image
                     src={image.url}
                     alt={`${product.name} thumbnail ${index + 1}`}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
                     data-ai-hint={image.hint}
                   />
@@ -209,7 +337,6 @@ export default function ProductPage() {
           <p className="text-2xl mt-2 mb-4">₹{product.price.toLocaleString()}</p>
           <Separator className="my-4 bg-black/10" />
           
-          {/* --- UPDATED STATUS INDICATOR --- */}
           {product.tag && (
             <div className={cn("flex items-center gap-2 text-sm font-semibold mb-6", product.tag === 'READY TO SHIP' ? "text-green-700" : "text-amber-600")}>
               <span className={cn("h-2 w-2 rounded-full", product.tag === 'READY TO SHIP' ? 'bg-green-700' : 'bg-amber-600')}></span>
@@ -217,11 +344,6 @@ export default function ProductPage() {
             </div>
           )}
           
-          {(product as any).stockQuantity !== undefined &&
-  product.availability === 'READY TO SHIP' &&
-  null}
-
-
           <p className="text-base text-foreground/80 mb-6">
             {product.description}
           </p>
