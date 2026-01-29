@@ -43,14 +43,118 @@ export const goldCategories: Category[] = [
 ];
 
 export const collections: Collection[] = [
-  { id: 1, title: 'Vasant', slug: 'vasant', description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', imageUrl: PlaceHolderImages.find(p => p.id === "coll1")?.imageUrl ?? "", imageHint: 'spring collection' },
-  { id: 2, title: 'Noor', slug: 'noor', description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', imageUrl: PlaceHolderImages.find(p => p.id === "coll2")?.imageUrl ?? "", imageHint: 'light jewelry' },
-  { id: 3, title: 'Mehr', slug: 'mehr', description: 'A collection that captures the grace and grandeur of bridal traditions, designed to be cherished for generations.', imageUrl: PlaceHolderImages.find(p => p.id === "coll3")?.imageUrl ?? "", imageHint: 'bridal jewelry' },
-  { id: 4, title: 'Amara', slug: 'amara', description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', imageUrl: PlaceHolderImages.find(p => p.id === "coll4")?.imageUrl ?? "", imageHint: 'eternal jewelry' },
-  { id: 5, title: 'The Royal Affair', slug: 'the-royal-affair', description: 'A majestic collection inspired by the jewels of Indian royalty, featuring uncut diamonds and precious stones.', imageUrl: PlaceHolderImages.find(p => p.id === "coll5")?.imageUrl ?? "", imageHint: 'royal jewelry' },
-  { id: 6, title: 'Jaipur By Night', slug: 'jaipur-by-night', description: 'Explore the mystique of Jaipur after dark with this collection of bold and enchanting designs.', imageUrl: PlaceHolderImages.find(p => p.id === "coll6")?.imageUrl ?? "", imageHint: 'jaipur night' },
-  { id: 7, title: 'Desert Bloom', slug: 'desert-bloom', description: 'Inspired by the resilient beauty of desert flowers, this collection features delicate and organic forms.', imageUrl: PlaceHolderImages.find(p => p.id === "coll7")?.imageUrl ?? "", imageHint: 'desert flower' },
-  { id: 8, title: 'Monsoon Magic', slug: 'monsoon-magic', description: 'A collection that captures the refreshing and transformative energy of the Indian monsoon.', imageUrl: PlaceHolderImages.find(p => p.id === "coll8")?.imageUrl ?? "", imageHint: 'monsoon rain' },
+  { 
+    id: 1, 
+    title: 'Vasant', 
+    slug: 'vasant', 
+    description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll1")?.imageUrl ?? "", 
+    imageHint: 'spring collection',
+    gallery: [
+      "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80", // Floral/Nature
+      "https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=800&q=80", // Colorful Jewelry
+      "https://images.unsplash.com/photo-1490750967868-58cb7506a90a?auto=format&fit=crop&w=800&q=80"  // Spring Bloom
+    ],
+    quote: "Spring unlocks the flowers to paint the laughing soil."
+  },
+  { 
+    id: 2, 
+    title: 'Noor', 
+    slug: 'noor', 
+    description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll2")?.imageUrl ?? "", 
+    imageHint: 'light jewelry',
+    gallery: [
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80", // Golden Light
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=800&q=80", // Minimal Gold
+      "https://images.unsplash.com/photo-1506634572416-48cdfe530110?auto=format&fit=crop&w=800&q=80"  // Radiance
+    ],
+    quote: "Illuminate the darkness with your own radiant light."
+  },
+  { 
+    id: 3, 
+    title: 'Mehr', 
+    slug: 'mehr', 
+    description: 'A collection that captures the grace and grandeur of bridal traditions, designed to be cherished for generations.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll3")?.imageUrl ?? "", 
+    imageHint: 'bridal jewelry',
+    gallery: [
+      "https://images.unsplash.com/photo-1595928607842-46c6374f1d11?auto=format&fit=crop&w=800&q=80", // Indian Bride Detail
+      "https://images.unsplash.com/photo-1610126749870-179339e1f57b?auto=format&fit=crop&w=800&q=80", // Red Saree/Gold
+      "https://images.unsplash.com/photo-1583934555026-6f85ed31313d?auto=format&fit=crop&w=800&q=80"  // Traditional Necklace
+    ],
+    quote: "In every piece of jewelry, a story of love and heritage is whispered."
+  },
+  { 
+    id: 4, 
+    title: 'Amara', 
+    slug: 'amara', 
+    description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll4")?.imageUrl ?? "", 
+    imageHint: 'eternal jewelry',
+    gallery: [
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80", // Modern Chic
+      "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&w=800&q=80", // Diamond Detail
+      "https://images.unsplash.com/photo-1531995811006-35cb42e1a022?auto=format&fit=crop&w=800&q=80"  // Elegant Portrait
+    ],
+    quote: "Elegance is the only beauty that never fades."
+  },
+  { 
+    id: 5, 
+    title: 'The Royal Affair', 
+    slug: 'the-royal-affair', 
+    description: 'A majestic collection inspired by the jewels of Indian royalty, featuring uncut diamonds and precious stones.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll5")?.imageUrl ?? "", 
+    imageHint: 'royal jewelry',
+    gallery: [
+      "https://images.unsplash.com/photo-1589156229687-496a31ad1d1f?auto=format&fit=crop&w=800&q=80", // Architecture
+      "https://images.unsplash.com/photo-1585503852504-2fa3ae765955?auto=format&fit=crop&w=800&q=80", // Heavy Polki
+      "https://images.unsplash.com/photo-1544256262-e22d95180630?auto=format&fit=crop&w=800&q=80"  // Luxury Texture
+    ],
+    quote: "Jewelry is not just an accessory; it is the language of royalty."
+  },
+  { 
+    id: 6, 
+    title: 'Jaipur By Night', 
+    slug: 'jaipur-by-night', 
+    description: 'Explore the mystique of Jaipur after dark with this collection of bold and enchanting designs.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll6")?.imageUrl ?? "", 
+    imageHint: 'jaipur night',
+    gallery: [
+      "https://images.unsplash.com/photo-1516714819001-8ee7a13b71d7?auto=format&fit=crop&w=800&q=80", // Dark/Bokeh
+      "https://images.unsplash.com/photo-1605218427368-43d99049ddad?auto=format&fit=crop&w=800&q=80", // Emerald/Dark
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80"  // Evening Fashion
+    ],
+    quote: "The night is more alive and more richly colored than the day."
+  },
+  { 
+    id: 7, 
+    title: 'Desert Bloom', 
+    slug: 'desert-bloom', 
+    description: 'Inspired by the resilient beauty of desert flowers, this collection features delicate and organic forms.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll7")?.imageUrl ?? "", 
+    imageHint: 'desert flower',
+    gallery: [
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80", // Desert/Sand
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80", // Gold on Sand
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80"  // Organic Texture
+    ],
+    quote: "Beauty is resilience blooming where it is least expected."
+  },
+  { 
+    id: 8, 
+    title: 'Monsoon Magic', 
+    slug: 'monsoon-magic', 
+    description: 'A collection that captures the refreshing and transformative energy of the Indian monsoon.', 
+    imageUrl: PlaceHolderImages.find(p => p.id === "coll8")?.imageUrl ?? "", 
+    imageHint: 'monsoon rain',
+    gallery: [
+      "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+    ],
+    quote: "The earth comes alive with the rhythm of the rain, washing away the dust of yesterday."
+  },
 ];
 
 export const reviews: Review[] = [

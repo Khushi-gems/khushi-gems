@@ -42,6 +42,8 @@ export type Collection = {
   imageHint: string;
   slug: string;
   description: string;
+  gallery?: string[];
+  quote:string;
 };
 
 export type MegaMenuItem = {
