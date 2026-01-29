@@ -15,9 +15,8 @@ import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
 import { heroSlides, silverCategories, collections, silverInstagramPosts } from '@/lib/data';
 import { Instagram, Loader2, ArrowRight } from 'lucide-react';
-// CHANGED: Import AutoScroll instead of Autoplay
 import AutoScroll from "embla-carousel-auto-scroll";
-import Autoplay from "embla-carousel-autoplay"; // Keep this for the Hero if needed
+import Autoplay from "embla-carousel-autoplay";
 import { Marquee } from '@/components/marquee';
 import { ExhibitionCarousel } from '@/components/exhibition-carousel';
 import ReviewsSection from "@/components/reviews-section"; 
@@ -167,7 +166,15 @@ export default function Home() {
                 ))}
               </motion.h2>
             </AnimatePresence>
-
+            
+            <motion.p 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 1, duration: 1 }}
+              className="mt-6 text-sm md:text-base font-light tracking-wide max-w-xs md:max-w-md mx-auto opacity-90"
+            >
+              Timeless elegance handcrafted for the modern soul.
+            </motion.p>
           </div>
 
           <div className="absolute bottom-20 right-90 hidden md:flex gap-3">
@@ -261,14 +268,15 @@ export default function Home() {
         </div>
       </motion.section>
       
-      {/* --- ABOUT SECTION --- */}
+      {/* --- ABOUT SECTION (UPDATED: IMAGE FIRST ON MOBILE) --- */}
       <motion.section
         className="container mx-auto px-4 md:px-6 py-12"
         data-ai-hint="introduction section"
         {...sectionAnimation}
       >
         <div className="grid md:grid-cols-2 gap-12 lg:gap-24 items-center max-w-6xl mx-auto">
-          <motion.div className="relative group order-2 md:order-1" {...itemAnimation}>
+          {/* IMAGE - Now comes first in DOM and visually on Mobile */}
+          <motion.div className="relative group" {...itemAnimation}>
             <div className="relative z-10 overflow-hidden rounded-xl shadow-2xl aspect-[4/5]">
               <Image
                 src="https://i.ibb.co/xPFRtDC/imgi-8-AG0il-Szzl-Il40-s-Vwin-ZVT8-T3h0v-Un8dpsf-Ir-Fnn-Qs-Nh-FUQ9d9q-C5x-ZK-bwv-Nj46gy-WVzvx-AA87g-G.png"
@@ -281,7 +289,8 @@ export default function Home() {
             <div className="absolute -bottom-6 -left-6 w-2/3 h-2/3 border border-primary/20 rounded-bl-3xl -z-0 hidden md:block" />
           </motion.div>
 
-          <motion.div className="order-1 md:order-2" {...itemAnimation}>
+          {/* CONTENT - Comes second on Mobile */}
+          <motion.div className="" {...itemAnimation}>
             <span className="text-xs font-bold tracking-[0.2em] text-primary uppercase block mb-4">
               Our Heritage
             </span>
@@ -365,7 +374,7 @@ export default function Home() {
       
       <ReviewsSection />
       
-      {/* --- INSTAGRAM SECTION (SCROLLABLE & INTERACTIVE) --- */}
+      {/* --- INSTAGRAM SECTION --- */}
       <motion.section className="bg-secondary/50 py-16 md:py-32 border-t border-border/40" data-ai-hint="instagram feed" {...sectionAnimation}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-screen-2xl mx-auto">
@@ -378,14 +387,13 @@ export default function Home() {
             </div>
 
             <div className="py-8">
-              {/* UPDATED: Uses AutoScroll Plugin so it moves smoothly BUT is swipable */}
               <Carousel 
                 opts={{ align: 'center', loop: true }}
                 plugins={[
                   AutoScroll({
-                    speed: 1, // Controls how fast it scrolls (1 is smooth/slow)
-                    stopOnInteraction: false, // Keeps scrolling after you let go
-                    stopOnMouseEnter: true,   // Pauses when you hover so you can click
+                    speed: 1, 
+                    stopOnInteraction: false, 
+                    stopOnMouseEnter: true, 
                   })
                 ]}
                 className="w-full"
