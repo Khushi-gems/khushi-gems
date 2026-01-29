@@ -13,10 +13,11 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
-import { ImageMarquee } from '@/components/image-marquee';
 import { heroSlides, silverCategories, collections, silverInstagramPosts } from '@/lib/data';
-import { Instagram, Loader2, Diamond, ArrowRight } from 'lucide-react'; 
-import Autoplay from "embla-carousel-autoplay"
+import { Instagram, Loader2, ArrowRight } from 'lucide-react';
+// CHANGED: Import AutoScroll instead of Autoplay
+import AutoScroll from "embla-carousel-auto-scroll";
+import Autoplay from "embla-carousel-autoplay"; // Keep this for the Hero if needed
 import { Marquee } from '@/components/marquee';
 import { ExhibitionCarousel } from '@/components/exhibition-carousel';
 import ReviewsSection from "@/components/reviews-section"; 
@@ -25,7 +26,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { useProducts } from '@/components/product-provider';
 import { LoadingLogo } from '@/components/loading-logo';
 
-// --- Enhanced Animation Constants ---
 const sectionAnimation = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
@@ -76,11 +76,9 @@ export default function Home() {
     if (!carouselApi) {
       return;
     }
-
     const onSelect = () => {
       setCurrentSlide(carouselApi.selectedScrollSnap());
     };
-
     carouselApi.on("select", onSelect);
     return () => {
       carouselApi.off("select", onSelect);
@@ -97,7 +95,6 @@ export default function Home() {
   }
 
   return (
-    // CHANGED: gap-24 to gap-16 md:gap-24 to reduce spacing on mobile
     <div className="flex flex-col gap-16 md:gap-24 overflow-hidden bg-background text-foreground">
       
       {/* --- HERO SECTION --- */}
@@ -116,14 +113,12 @@ export default function Home() {
               stopOnInteraction: false,
             }),
           ]}
-          // CHANGED: h-screen to h-[100dvh] for better mobile browser support
-          className="w-full h-[100dvh] md:h-[95vh]"
+          className="w-full h-[70vh] md:h-[95vh]"
           data-ai-hint="hero slider"
         >
           <CarouselContent>
             {heroSlides.map((slide) => (
-              // CHANGED: Adjusted height for mobile
-              <CarouselItem key={slide.id} className="h-[100dvh] md:h-[87vh]">
+              <CarouselItem key={slide.id} className="h-[70vh] md:h-[87vh]">
                 <div className="relative h-full w-full">
                   <Image
                     src={slide.imageUrl}
@@ -158,7 +153,6 @@ export default function Home() {
                 initial="initial"
                 animate="animate"
                 exit="initial"
-                // CHANGED: Text sizing for responsiveness (text-4xl for mobile)
                 className="font-headline text-4xl sm:text-5xl md:text-7xl lg:text-8xl flex flex-wrap justify-center overflow-hidden py-4 leading-[1.1] md:leading-[0.9] tracking-tight"
                 style={{ textShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
               >
@@ -173,6 +167,15 @@ export default function Home() {
                 ))}
               </motion.h2>
             </AnimatePresence>
+            
+            <motion.p 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ delay: 1, duration: 1 }}
+              className="mt-6 text-sm md:text-base font-light tracking-wide max-w-xs md:max-w-md mx-auto opacity-90"
+            >
+              Timeless elegance handcrafted for the modern soul.
+            </motion.p>
           </div>
 
           <div className="absolute bottom-20 right-90 hidden md:flex gap-3">
@@ -183,7 +186,6 @@ export default function Home() {
       </motion.section>
 
       {/* --- CATEGORIES SECTION --- */}
-      {/* CHANGED: px-40 to responsive padding px-4 md:px-12 lg:px-40 */}
       <motion.section className="container mx-auto px-4 md:px-12 lg:px-40" data-ai-hint="shop by category" {...sectionAnimation}>
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
@@ -207,7 +209,6 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       
                       <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                        {/* CHANGED: Text size for mobile */}
                         <h3 className="font-headline text-lg md:text-xl text-white tracking-wide mb-1">{category.name}</h3>
                         <div className="h-px w-0 group-hover:w-12 bg-white/50 mx-auto transition-all duration-500 delay-100"></div>
                       </div>
@@ -230,9 +231,6 @@ export default function Home() {
                 <h2 className="font-headline text-3xl md:text-5xl tracking-tight mb-2">Our Bestsellers</h2>
                 <p className="text-muted-foreground font-light text-sm md:text-base">Timeless silver pieces, handcrafted with love</p>
               </div>
-              <div className="hidden md:flex gap-2">
-                {/* Custom Navigation Placeholders if needed */}
-              </div>
             </div>
             
             {isProductsLoading ? (
@@ -252,7 +250,6 @@ export default function Home() {
                 >
                   <CarouselContent className="-ml-4 md:-ml-6">
                     {displayedBestsellers.slice(0, 8).map((product) => (
-                      // CHANGED: basis-[75%] for mobile (shows 1 card with peek), sm:basis-1/2
                       <CarouselItem key={product.id} className="basis-[75%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4 md:pl-6">
                         <ProductCard product={product} />
                       </CarouselItem>
@@ -279,8 +276,6 @@ export default function Home() {
         {...sectionAnimation}
       >
         <div className="grid md:grid-cols-2 gap-12 lg:gap-24 items-center max-w-6xl mx-auto">
-
-          {/* IMAGE */}
           <motion.div className="relative group order-2 md:order-1" {...itemAnimation}>
             <div className="relative z-10 overflow-hidden rounded-xl shadow-2xl aspect-[4/5]">
               <Image
@@ -291,26 +286,20 @@ export default function Home() {
               />
               <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
             </div>
-
             <div className="absolute -bottom-6 -left-6 w-2/3 h-2/3 border border-primary/20 rounded-bl-3xl -z-0 hidden md:block" />
           </motion.div>
 
-          {/* CONTENT */}
           <motion.div className="order-1 md:order-2" {...itemAnimation}>
             <span className="text-xs font-bold tracking-[0.2em] text-primary uppercase block mb-4">
               Our Heritage
             </span>
-
-            {/* CHANGED: Text sizing for mobile */}
             <h2 className="font-headline text-3xl md:text-5xl lg:text-6xl mb-8 tracking-tight leading-[1.15]">
               <span className="text-primary italic">
                 Khushi Gems & Jewels
               </span>{" "}
               – A Legacy of Jaipur&apos;s Timeless Craftsmanship
             </h2>
-
             <div className="space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed font-light">
-
               <p>
                 Rooted in the heart of the Old Pink City,{" "}
                 <span className="font-semibold text-foreground">
@@ -327,7 +316,6 @@ export default function Home() {
                 </span>{" "}
                 come together to create jewellery that transcends time.
               </p>
-
               <p>
                 Every creation reflects the soul of Rajasthan—its regal history,
                 intricate architecture, vibrant colours, and royal traditions.{" "}
@@ -337,7 +325,6 @@ export default function Home() {
                 </span>
                 , our designs celebrate heritage while embracing contemporary elegance.
               </p>
-
               <div className="pt-4">
                 <Button
                   variant="link"
@@ -352,7 +339,6 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
-
         </div>
       </motion.section>
 
@@ -387,7 +373,7 @@ export default function Home() {
       
       <ReviewsSection />
       
-      {/* --- INSTAGRAM SECTION --- */}
+      {/* --- INSTAGRAM SECTION (SCROLLABLE & INTERACTIVE) --- */}
       <motion.section className="bg-secondary/50 py-16 md:py-32 border-t border-border/40" data-ai-hint="instagram feed" {...sectionAnimation}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-screen-2xl mx-auto">
@@ -395,31 +381,48 @@ export default function Home() {
                <div className="inline-flex items-center justify-center p-3 rounded-full bg-secondary/30 mb-6">
                   <Instagram className="h-6 w-6 text-foreground" />
                </div>
-              {/* CHANGED: Text sizing for mobile */}
               <h2 className="font-headline text-3xl md:text-5xl mb-3 tracking-tight break-all md:break-normal">@khushijewelssilver</h2>
               <p className="text-muted-foreground tracking-wide text-sm md:text-base">Follow our journey on Instagram</p>
             </div>
 
             <div className="py-8">
-              <ImageMarquee baseVelocity={-1}>
+              {/* UPDATED: Uses AutoScroll Plugin so it moves smoothly BUT is swipable */}
+              <Carousel 
+                opts={{ align: 'center', loop: true }}
+                plugins={[
+                  AutoScroll({
+                    speed: 1, // Controls how fast it scrolls (1 is smooth/slow)
+                    stopOnInteraction: false, // Keeps scrolling after you let go
+                    stopOnMouseEnter: true,   // Pauses when you hover so you can click
+                  })
+                ]}
+                className="w-full"
+              >
+                <CarouselContent>
                   {silverInstagramPosts.map((post) => (
-                      <Link href={post.slug} key={post.id} target="_blank" rel="noopener noreferrer">
-                      {/* CHANGED: Adjusted width for mobile to prevent too large blocks */}
-                      <div className="relative aspect-square w-56 md:w-80 overflow-hidden rounded-sm group mx-3 bg-gray-100">
-                        <Image
-                          src={post.imageUrl}
-                          alt="Instagram post"
-                          fill
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                          data-ai-hint={post.imageHint}
-                        />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                          <span className="text-white text-xs font-bold tracking-widest uppercase border border-white/50 px-4 py-2 rounded-full">View Post</span>
-                        </div>
-                      </div>
-                    </Link>
+                      <CarouselItem key={post.id} className="basis-auto pl-4">
+                        <Link href={post.slug} target="_blank" rel="noopener noreferrer" className="block">
+                          <div className="relative aspect-square w-64 md:w-80 overflow-hidden rounded-sm group bg-gray-100 cursor-pointer">
+                            <Image
+                              src={post.imageUrl}
+                              alt="Instagram post"
+                              fill
+                              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                              data-ai-hint={post.imageHint}
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                              <span className="text-white text-xs font-bold tracking-widest uppercase border border-white/50 px-4 py-2 rounded-full">View Post</span>
+                            </div>
+                          </div>
+                        </Link>
+                      </CarouselItem>
                   ))}
-              </ImageMarquee>
+                </CarouselContent>
+                <div className="hidden md:block">
+                  <CarouselPrevious className="left-4" />
+                  <CarouselNext className="right-4" />
+                </div>
+              </Carousel>
             </div>
               
              <div className="text-center mt-10">
