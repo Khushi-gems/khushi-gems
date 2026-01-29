@@ -47,12 +47,11 @@
     @apply bg-background text-foreground;
   }
 }
-/* Force the Cloudinary widget to the front of all popups */
+/* FORCE CLOUDINARY TO FRONT */
 iframe[src*="cloudinary"] {
-    z-index: 9999 !important;
+    z-index: 10000 !important;
 }
 
-#cloudinary-overlay, 
-#cloudinary-widget {
-    z-index: 9999 !important;
+div[data-test="cloudinary-widget"] {
+    z-index: 10000 !important;
 }

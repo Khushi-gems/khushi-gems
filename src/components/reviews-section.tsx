@@ -97,8 +97,6 @@ export default function ReviewsSection() {
           </svg>
         </div>
 
-        {/* Cards Container */}
-        {/* Adjusted justify and gap to fit 5 items */}
         <div className="relative z-10 flex flex-wrap justify-center lg:justify-between items-start gap-4 px-2">
           
           {testimonials.map((item) => (

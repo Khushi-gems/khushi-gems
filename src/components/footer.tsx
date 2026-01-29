@@ -29,7 +29,6 @@ export function Footer() {
   const accountLinks = [
     { name: "My Account", href: "/account" },
     { name: "Orders Tracking", href: "/track-order" },
-    { name: "Cart", href: "/cart" },
   ];
 
   const contactPersons = [
