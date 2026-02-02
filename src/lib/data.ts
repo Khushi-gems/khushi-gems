@@ -129,7 +129,7 @@ export const collections: Collection[] = [
     title: 'Chandigarh', 
     slug: 'vasant', 
     description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', 
-    imageUrl: PlaceHolderImages.find(p => p.id === "coll1")?.imageUrl ?? "", 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045413/Gemini_Generated_Image_rm0l2zrm0l2zrm0l_1_wfl0dl.png', 
     imageHint: 'spring collection',
     gallery: [
       "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80", // Floral/Nature
@@ -143,7 +143,7 @@ export const collections: Collection[] = [
     title: 'Dubai', 
     slug: 'noor', 
     description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', 
-    imageUrl: PlaceHolderImages.find(p => p.id === "coll2")?.imageUrl ?? "", 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045413/Gemini_Generated_Image_dds5z1dds5z1dds5_1_l6ni5n.png', 
     imageHint: 'light jewelry',
     gallery: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80", // Golden Light
@@ -157,7 +157,7 @@ export const collections: Collection[] = [
     title: 'Hyderabad', 
     slug: 'mehr', 
     description: 'A collection that captures the grace and grandeur of bridal traditions, designed to be cherished for generations.', 
-    imageUrl: PlaceHolderImages.find(p => p.id === "coll3")?.imageUrl ?? "", 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045510/Gemini_Generated_Image_mgkgczmgkgczmgkg_1_yjx8nu.png', 
     imageHint: 'bridal jewelry',
     gallery: [
       "https://images.unsplash.com/photo-1595928607842-46c6374f1d11?auto=format&fit=crop&w=800&q=80", // Indian Bride Detail
@@ -168,10 +168,10 @@ export const collections: Collection[] = [
   },
   { 
     id: 4, 
-    title: 'Delhi', 
+    title: 'Mumbai', 
     slug: 'amara', 
     description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', 
-    imageUrl: PlaceHolderImages.find(p => p.id === "coll4")?.imageUrl ?? "", 
+    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045418/Gemini_Generated_Image_jr2k9ajr2k9ajr2k_hm5kli.png', 
     imageHint: 'eternal jewelry',
     gallery: [
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80", // Modern Chic
