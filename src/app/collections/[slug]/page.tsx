@@ -11,6 +11,8 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useMemo, useRef } from "react";
 import { LoadingLogo } from "@/components/loading-logo";
 
+// Helper to check for video files
+const isVideo = (url: string) => /\.(mp4|webm|ogg|mov)$/i.test(url);
 
 const Marquee = ({ text }: { text: string }) => {
   return (
@@ -31,6 +33,30 @@ const GallerySection = ({ images }: { images: string[] }) => {
     // Fallback if no images provided
     if (!images || images.length === 0) return null;
 
+    // Helper component to render Media (Video or Image)
+    const MediaItem = ({ src, alt, className }: { src: string, alt: string, className?: string }) => {
+        if (isVideo(src)) {
+            return (
+                <video
+                    src={src}
+                    className={className}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+            );
+        }
+        return (
+            <Image 
+                src={src} 
+                alt={alt} 
+                fill 
+                className={className} 
+            />
+        );
+    };
+
     return (
         <section className="py-24 px-4 md:px-12 max-w-[1800px] mx-auto bg-background">
             <div className="flex items-end justify-between mb-12 ">
@@ -49,11 +75,10 @@ const GallerySection = ({ images }: { images: string[] }) => {
                     transition={{ duration: 0.6 }}
                     className="md:col-span-6 md:row-span-2 relative h-[400px] md:h-full rounded-sm overflow-hidden group"
                 >
-                    <Image 
+                    <MediaItem 
                         src={images[0]} 
                         alt="Gallery 1" 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 w-full h-full absolute inset-0"
                     />
                     <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 text-xs font-mono">FIG. 01</div>
                 </motion.div>
@@ -66,11 +91,10 @@ const GallerySection = ({ images }: { images: string[] }) => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="md:col-span-6 md:row-span-1 relative h-[300px] md:h-full rounded-sm overflow-hidden group"
                 >
-                    <Image 
+                    <MediaItem 
                         src={images[1] || images[0]} 
                         alt="Gallery 2" 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 w-full h-full absolute inset-0"
                     />
                      <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 text-xs font-mono">FIG. 02</div>
                 </motion.div>
@@ -84,11 +108,10 @@ const GallerySection = ({ images }: { images: string[] }) => {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="relative h-[250px] md:h-full rounded-sm overflow-hidden group"
                     >
-                         <Image 
+                         <MediaItem 
                             src={images[2] || images[0]} 
                             alt="Gallery 3" 
-                            fill 
-                            className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                            className="object-cover transition-transform duration-700 group-hover:scale-105 w-full h-full absolute inset-0"
                         />
                          <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 text-xs font-mono">FIG. 03</div>
                     </motion.div>
@@ -164,14 +187,25 @@ export default function CollectionDetailPage() {
                         transition={{ duration: 1.5, ease: "easeOut" }}
                         className="relative h-full w-full"
                     >
-                        <Image
-                            src={collection.imageUrl}
-                            alt={collection.title}
-                            fill
-                            className="object-cover"
-                            priority
-                            data-ai-hint={collection.imageHint}
-                        />
+                        {isVideo(collection.imageUrl) ? (
+                            <video
+                                src={collection.imageUrl}
+                                className="object-cover w-full h-full"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                            />
+                        ) : (
+                            <Image
+                                src={collection.imageUrl}
+                                alt={collection.title}
+                                fill
+                                className="object-cover"
+                                priority
+                                data-ai-hint={collection.imageHint}
+                            />
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     </motion.div>
                 </div>

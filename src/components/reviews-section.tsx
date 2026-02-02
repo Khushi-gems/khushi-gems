@@ -98,17 +98,7 @@ export default function ReviewsSection() {
 
 
 
-        {/* String Background */}
-        <div className="absolute top-[240px] left-0 w-full h-20 z-0 pointer-events-none hidden lg:block">
-          <svg width="100%" height="100%" preserveAspectRatio="none">
-            <path 
-              d="M0,10 Q500,40 1000,15 T14000,10" 
-              fill="none" 
-              stroke="#cbd5e1" 
-              strokeWidth="2" 
-            />
-          </svg>
-        </div>
+
 
         {/* Cards Container */}
         {/* Adjusted justify and gap to fit 5 items */}
@@ -129,7 +119,7 @@ export default function ReviewsSection() {
               `}
               style={{ backgroundColor: '#fff5f7' }}
             >
-              <ClipIcon />
+              
 
               <div className="w-full aspect-[4/3] overflow-hidden rounded-sm mb-4 border border-white/50 shadow-sm">
                 <img 

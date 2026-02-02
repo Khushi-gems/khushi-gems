@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -19,6 +18,9 @@ import { cn } from '@/lib/utils';
 type ExhibitionCarouselProps = {
   collections: Collection[];
 };
+
+// Helper function to check if the URL is a video
+const isVideo = (url: string) => /\.(mp4|webm|ogg|mov)$/i.test(url);
 
 export function ExhibitionCarousel({ collections }: ExhibitionCarouselProps) {
   const [api, setApi] = useState<CarouselApi>();
@@ -65,7 +67,6 @@ export function ExhibitionCarousel({ collections }: ExhibitionCarouselProps) {
     return { scale, opacity, zIndex };
   };
 
-
   return (
     <Carousel
       setApi={setApi}
@@ -82,17 +83,28 @@ export function ExhibitionCarousel({ collections }: ExhibitionCarouselProps) {
             <CarouselItem key={collection.id} className="md:basis-1/2 lg:basis-1/3 pl-4">
               <Link href={`/collections/${collection.slug}`}>
                 <motion.div
-                  className="relative aspect-[3/4] overflow-hidden rounded-lg"
+                  className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100"
                   animate={{ scale, opacity, zIndex }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
-                  <Image
-                    src={collection.imageUrl}
-                    alt={collection.title}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={collection.imageHint}
-                  />
+                  {isVideo(collection.imageUrl) ? (
+                    <video
+                      src={collection.imageUrl}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <Image
+                      src={collection.imageUrl}
+                      alt={collection.title}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={collection.imageHint}
+                    />
+                  )}
                   <div
                     className={cn(
                       'absolute inset-0 transition-colors duration-300',

@@ -14,38 +14,119 @@ export const goldBannerSlides = [
   { id: 3, imageUrl: "https://i.ibb.co/67LJ55Bb/imgi-221-For-Desktop-Gold-Poster-min.png", alt: 'Stack of gold bangles', imageHint: 'gold bangles stack' },
 ];
 
-// Split categories for Silver (Default)
+
 export const silverCategories: Category[] = [
-  { name: 'Necklaces', imageUrl: PlaceHolderImages.find(p => p.id === "cat1")?.imageUrl ?? "", imageHint: 'necklaces jewelry' },
-  { name: 'Earrings', imageUrl: PlaceHolderImages.find(p => p.id === "cat2")?.imageUrl ?? "", imageHint: 'earrings jewelry' },
-  { name: 'Pendants', imageUrl: PlaceHolderImages.find(p => p.id === "cat3")?.imageUrl ?? "", imageHint: 'pendant jewelry' },
-  { name: 'Rings', imageUrl: PlaceHolderImages.find(p => p.id === "cat4")?.imageUrl ?? "", imageHint: 'rings jewelry' },
-  { name: 'Bangles/bracelets', imageUrl: PlaceHolderImages.find(p => p.id === "cat5")?.imageUrl ?? "", imageHint: 'bracelet jewelry' },
-  { name: 'Nosepin', imageUrl: PlaceHolderImages.find(p => p.id === "cat10")?.imageUrl ?? "", imageHint: 'nosepin jewelry' },
-  { name: 'Chokers', imageUrl: PlaceHolderImages.find(p => p.id === "cat7")?.imageUrl ?? "", imageHint: 'choker necklace' },
-  { name: 'Silver Accessories/Gift Corner', imageUrl: PlaceHolderImages.find(p => p.id === "cat9")?.imageUrl ?? "", imageHint: 'fashion accessories' },
-  { name: 'Maang Tikka', imageUrl: PlaceHolderImages.find(p => p.id === "cat11")?.imageUrl ?? "", imageHint: 'maangtikka jewelry' },
-  { name: 'Diamond Jewellery', imageUrl: PlaceHolderImages.find(p => p.id === "cat12")?.imageUrl ?? "", imageHint: 'diamond jewelry' },
+  {
+    name: 'Necklaces',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029035/NECKLACES_1_rqiqxe.jpg',
+    imageHint: 'necklaces jewelry',
+  },
+  {
+    name: 'Earrings',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029034/EARRINGS_1_qfb42y.jpg',
+    imageHint: 'earrings jewelry',
+  },
+  {
+    name: 'Pendants',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029037/PENDANTS_1_qc58th.jpg',
+    imageHint: 'pendant jewelry',
+  },
+  {
+    name: 'Rings',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029035/RINGS_ic2zke.jpg',
+    imageHint: 'rings jewelry',
+  },
+  {
+    name: 'Bangles/bracelets',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770028126/BANGLES_xrijmd.jpg',
+    imageHint: 'bracelet jewelry',
+  },
+  {
+    name: 'Nosepin',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770043635/Gemini_Generated_Image_ll0d5ill0d5ill0d_1_lfdv3h.png',
+    imageHint: 'nosepin jewelry',
+  },
+  {
+    name: 'Chokers',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029041/CHOKER_NECKLACE_1_dehnuv.jpg',
+    imageHint: 'choker necklace',
+  },
+  {
+    name: 'Silver Accessories/Gift Corner',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029035/SILVER_ACCESSORIES_1_rhxqip.jpg',
+    imageHint: 'fashion accessories',
+  },
+  {
+    name: 'Maang Tikka',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770043636/Gemini_Generated_Image_nkhzbynkhzbynkhz_1_faprf0.png',
+    imageHint: 'maangtikka jewelry',
+  },
+  {
+    name: 'Diamond Jewellery',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770029034/DIAMOND_JEWELLERY_1_kyao1t.jpg',
+    imageHint: 'diamond jewelry',
+  },
 ];
 
-// Split categories for Gold (Excludes silver specific items like Silver Accessories)
+
 export const goldCategories: Category[] = [
-  { name: 'Necklaces', imageUrl: PlaceHolderImages.find(p => p.id === "cat1")?.imageUrl ?? "", imageHint: 'necklaces jewelry' },
-  { name: 'Earrings', imageUrl: PlaceHolderImages.find(p => p.id === "cat2")?.imageUrl ?? "", imageHint: 'earrings jewelry' },
-  { name: 'Pendants', imageUrl: PlaceHolderImages.find(p => p.id === "cat3")?.imageUrl ?? "", imageHint: 'pendant jewelry' },
-  { name: 'Rings', imageUrl: PlaceHolderImages.find(p => p.id === "cat4")?.imageUrl ?? "", imageHint: 'rings jewelry' },
-  { name: 'Bangles/bracelets', imageUrl: PlaceHolderImages.find(p => p.id === "cat5")?.imageUrl ?? "", imageHint: 'bracelet jewelry' },
-  { name: 'Nosepin', imageUrl: PlaceHolderImages.find(p => p.id === "cat10")?.imageUrl ?? "", imageHint: 'nosepin jewelry' },
-  { name: 'Chokers', imageUrl: PlaceHolderImages.find(p => p.id === "cat7")?.imageUrl ?? "", imageHint: 'choker necklace' },
-  { name: 'Gold Accessories/Gift Corner', imageUrl: PlaceHolderImages.find(p => p.id === "cat9")?.imageUrl ?? "", imageHint: 'fashion accessories' },
-  { name: 'Maang Tikka', imageUrl: PlaceHolderImages.find(p => p.id === "cat11")?.imageUrl ?? "", imageHint: 'maangtikka jewelry' },
-  { name: 'Diamond Jewellery', imageUrl: PlaceHolderImages.find(p => p.id === "cat12")?.imageUrl ?? "", imageHint: 'diamond jewelry' },
+  {
+    name: 'Necklaces',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030200/NECKLACES_cqo6xg.jpg',
+    imageHint: 'necklaces jewelry',
+  },
+  {
+    name: 'Earrings',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770041728/earrings_1_de8vvu.jpg',
+    imageHint: 'earrings jewelry',
+  },
+  {
+    name: 'Pendants',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030196/PENDANTS_anibus.jpg',
+    imageHint: 'pendant jewelry',
+  },
+  {
+    name: 'Rings',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030196/RINGS_b4s0na.jpg',
+    imageHint: 'rings jewelry',
+  },
+  {
+    name: 'Bangles/bracelets',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030191/BANGLES_e5kc88.jpg',
+    imageHint: 'bracelet jewelry',
+  },
+  {
+    name: 'Nosepin',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770043275/Gemini_Generated_Image_inzz47inzz47inzz_1_s1qfgg.png',
+    imageHint: 'nosepin jewelry',
+  },
+  {
+    name: 'Chokers',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030195/CHOKER_cymlni.jpg',
+    imageHint: 'choker necklace',
+  },
+  {
+    name: 'Gold Accessories/Gift Corner',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030197/SILVER_ACCESSORIES_yr0e43.jpg',
+    imageHint: 'fashion accessories',
+  },
+  {
+    name: 'Maang Tikka',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030192/MANGTEEKA_gglpk1.jpg',
+    imageHint: 'maangtikka jewelry',
+  },
+  {
+    name: 'Diamond Jewellery',
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770030199/DIAMOND_JEWEL_svmah6.jpg',
+    imageHint: 'diamond jewelry',
+  },
 ];
+
 
 export const collections: Collection[] = [
   { 
     id: 1, 
-    title: 'Vasant', 
+    title: 'Chandigarh', 
     slug: 'vasant', 
     description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', 
     imageUrl: PlaceHolderImages.find(p => p.id === "coll1")?.imageUrl ?? "", 
@@ -59,7 +140,7 @@ export const collections: Collection[] = [
   },
   { 
     id: 2, 
-    title: 'Noor', 
+    title: 'Dubai', 
     slug: 'noor', 
     description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', 
     imageUrl: PlaceHolderImages.find(p => p.id === "coll2")?.imageUrl ?? "", 
@@ -73,7 +154,7 @@ export const collections: Collection[] = [
   },
   { 
     id: 3, 
-    title: 'Mehr', 
+    title: 'Hyderabad', 
     slug: 'mehr', 
     description: 'A collection that captures the grace and grandeur of bridal traditions, designed to be cherished for generations.', 
     imageUrl: PlaceHolderImages.find(p => p.id === "coll3")?.imageUrl ?? "", 
@@ -87,7 +168,7 @@ export const collections: Collection[] = [
   },
   { 
     id: 4, 
-    title: 'Amara', 
+    title: 'Delhi', 
     slug: 'amara', 
     description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', 
     imageUrl: PlaceHolderImages.find(p => p.id === "coll4")?.imageUrl ?? "", 
@@ -99,7 +180,7 @@ export const collections: Collection[] = [
     ],
     quote: "Elegance is the only beauty that never fades."
   },
-  { 
+ /* { 
     id: 5, 
     title: 'The Royal Affair', 
     slug: 'the-royal-affair', 
@@ -154,7 +235,7 @@ export const collections: Collection[] = [
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
     ],
     quote: "The earth comes alive with the rhythm of the rain, washing away the dust of yesterday."
-  },
+  },*/
 ];
 
 export const reviews: Review[] = [
