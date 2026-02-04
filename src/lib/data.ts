@@ -128,7 +128,7 @@ export const collections: Collection[] = [
   { 
     id: 1, 
     title: 'Chandigarh', 
-    slug: 'vasant', 
+    slug: 'Chandigarh', 
     description: 'Our Chandigarh exhibition presents an elegant selection of handcrafted jewelry, designed to be treasured.', 
     imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770200261/WhatsApp_Image_2026-02-04_at_2.34.05_PM_1_hzw0pm.jpg', 
     imageHint: 'spring collection',
@@ -142,7 +142,7 @@ export const collections: Collection[] = [
   { 
     id: 2, 
     title: 'Dubai', 
-    slug: 'noor', 
+    slug: 'Dubai', 
     description: 'An exclusive jewelry exhibition in Dubai, presenting refined craftsmanship and timeless luxury', 
     imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg', 
     imageHint: 'light jewelry',
@@ -156,7 +156,7 @@ export const collections: Collection[] = [
   { 
     id: 3, 
     title: 'Hyderabad', 
-    slug: 'mehr', 
+    slug: 'Hyderabad', 
     description: 'A curated jewelry exhibition in Hyderabad, highlighting heritage craftsmanship and elegant design', 
     imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg', 
     imageHint: 'bridal jewelry',
@@ -170,7 +170,7 @@ export const collections: Collection[] = [
   { 
     id: 4, 
     title: 'Mumbai', 
-    slug: 'amara', 
+    slug: 'Mumbai', 
     description: 'A curated jewelry exhibition in Mumbai, celebrating contemporary style and heritage craftsmanship.', 
     imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770200839/WhatsApp_Image_2026-02-04_at_2.34.04_PM_1_yj8q8t.jpg', 
     imageHint: 'eternal jewelry',
@@ -184,7 +184,7 @@ export const collections: Collection[] = [
    { 
     id: 5, 
     title: 'Delhi', 
-    slug: 'the-royal-affair', 
+    slug: 'Delhi', 
     description: 'An exclusive jewelry exhibition in Delhi, showcasing classic artistry with refined sophistication.', 
     imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770201191/WhatsApp_Image_2026-02-04_at_2.34.03_PM_1_tl2fzz.jpg',
     imageHint: 'royal jewelry',
