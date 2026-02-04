@@ -145,20 +145,22 @@ export default function AboutPage() {
         <div className="mb-32 md:mb-40">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             
-            {/* Image Side with decorative elements */}
-            <motion.div {...fadeInUp} className="relative group">
-              <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3]">
-                <Image
-                  src="https://i.ibb.co/pjcWqTmw/imgi-155-jal-mahal-jaipur-tour.png"
-                  alt="Traditional jewellery craftsmanship"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              {/* Decorative Frame */}
-              <div className="absolute -top-4 -left-4 w-full h-full border border-border rounded-xl -z-0"></div>
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl -z-10"></div>
-            </motion.div>
+{/* Video Side with decorative elements */}
+<motion.div {...fadeInUp} className="relative group">
+  <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3] bg-muted">
+    <video
+      src="https://res.cloudinary.com/dum5jqndc/video/upload/v1770205632/WhatsApp_Video_2026-02-04_at_5.12.36_PM_ccqarn.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+    />
+  </div>
+  {/* Decorative Frame */}
+  <div className="absolute -top-4 -left-4 w-full h-full border border-border rounded-xl -z-0"></div>
+  <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl -z-10"></div>
+</motion.div>
             
             {/* Text Side */}
             <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
@@ -250,7 +252,7 @@ export default function AboutPage() {
             <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="order-1 lg:order-2 relative">
               <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://picsum.photos/seed/world/600/400"
+                  src="https://res.cloudinary.com/dum5jqndc/image/upload/v1770204521/IMG_0054_obex9g.jpg"
                   alt="Global presence map"
                   fill
                   className="object-cover"
@@ -289,7 +291,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <Image
-                src="https://i.ibb.co/v69hJkc2/imgi-156-dsc-0427.png"
+                src="https://res.cloudinary.com/dum5jqndc/image/upload/v1770206132/IMG_0086_dethrp.jpg"
                 alt="Manufacturing process"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -298,8 +300,8 @@ export default function AboutPage() {
             </motion.div>
 
             {[
-              "https://picsum.photos/seed/factory2/400/300",
-              "https://picsum.photos/seed/factory3/400/300",
+              "https://res.cloudinary.com/dum5jqndc/image/upload/v1770206133/IMG_0087_jftt6h.jpg",
+              "https://res.cloudinary.com/dum5jqndc/image/upload/v1770206132/IMG_0085_xhue7y.jpg",
             ].map((src, index) => (
               <motion.div
                 key={index}
@@ -325,7 +327,7 @@ export default function AboutPage() {
                 className="relative rounded-xl overflow-hidden group col-span-2 md:col-span-1"
               >
                 <Image
-                  src="https://picsum.photos/seed/factory4/400/300"
+                  src="https://res.cloudinary.com/dum5jqndc/image/upload/v1770207384/Screenshot_2026-02-04_174539_yfgqcy.png"
                   alt="Manufacturing process"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"

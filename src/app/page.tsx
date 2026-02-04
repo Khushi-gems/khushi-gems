@@ -271,8 +271,8 @@ export default function Home() {
           <motion.div className="relative group" {...itemAnimation}>
             <div className="relative z-10 overflow-hidden rounded-xl shadow-2xl aspect-[4/5]">
               <Image
-                src="https://i.ibb.co/xPFRtDC/imgi-8-AG0il-Szzl-Il40-s-Vwin-ZVT8-T3h0v-Un8dpsf-Ir-Fnn-Qs-Nh-FUQ9d9q-C5x-ZK-bwv-Nj46gy-WVzvx-AA87g-G.png"
-                alt="Hawa Mahal in Jaipur"
+                src="https://res.cloudinary.com/dum5jqndc/image/upload/v1770205373/IMG_0065_1_ltesyx.png"
+                alt="Khushi Gems & Jewels in Jaipur"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
