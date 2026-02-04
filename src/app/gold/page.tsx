@@ -268,7 +268,7 @@ export default function GoldPage() {
                <div className="inline-flex items-center justify-center p-3 rounded-full bg-secondary/30 mb-6">
                   <Instagram className="h-6 w-6 text-foreground" />
                </div>
-              <h2 className="font-headline text-3xl md:text-5xl mb-3 tracking-tight break-all md:break-normal">@khushigemsandjewellery</h2>
+              <h2 className="font-headline text-3xl md:text-5xl mb-3 tracking-tight break-all md:break-normal">@khushigemsjaipur</h2>
               <p className="text-muted-foreground tracking-wide text-sm md:text-base">Follow our journey on Instagram</p>
             </div>
             
