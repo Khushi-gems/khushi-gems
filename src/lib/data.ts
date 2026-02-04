@@ -129,7 +129,7 @@ export const collections: Collection[] = [
     title: 'Chandigarh', 
     slug: 'vasant', 
     description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', 
-    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045413/Gemini_Generated_Image_rm0l2zrm0l2zrm0l_1_wfl0dl.png', 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg', 
     imageHint: 'spring collection',
     gallery: [
       "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80", // Floral/Nature
@@ -143,7 +143,7 @@ export const collections: Collection[] = [
     title: 'Dubai', 
     slug: 'noor', 
     description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', 
-    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045413/Gemini_Generated_Image_dds5z1dds5z1dds5_1_l6ni5n.png', 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg', 
     imageHint: 'light jewelry',
     gallery: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80", // Golden Light
@@ -156,22 +156,22 @@ export const collections: Collection[] = [
     id: 3, 
     title: 'Hyderabad', 
     slug: 'mehr', 
-    description: 'A collection that captures the grace and grandeur of bridal traditions, designed to be cherished for generations.', 
-    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045510/Gemini_Generated_Image_mgkgczmgkgczmgkg_1_yjx8nu.png', 
+    description: 'A curated jewelry exhibition in Hyderabad, highlighting heritage craftsmanship and elegant design', 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.03_PM_apktdx.jpg', 
     imageHint: 'bridal jewelry',
     gallery: [
-      "https://images.unsplash.com/photo-1595928607842-46c6374f1d11?auto=format&fit=crop&w=800&q=80", // Indian Bride Detail
-      "https://images.unsplash.com/photo-1610126749870-179339e1f57b?auto=format&fit=crop&w=800&q=80", // Red Saree/Gold
-      "https://images.unsplash.com/photo-1583934555026-6f85ed31313d?auto=format&fit=crop&w=800&q=80"  // Traditional Necklace
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1769761971/IMG_9198_mqmx9l.mov", // Indian Bride Detail
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg", // Red Saree/Gold
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg"  // Traditional Necklace
     ],
-    quote: "In every piece of jewelry, a story of love and heritage is whispered."
+    quote: "Timeless jewelry, unveiled in Hyderabad"
   },
   { 
     id: 4, 
     title: 'Mumbai', 
     slug: 'amara', 
     description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', 
-    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770045418/Gemini_Generated_Image_jr2k9ajr2k9ajr2k_hm5kli.png', 
+    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.03_PM_apktdx.jpg', 
     imageHint: 'eternal jewelry',
     gallery: [
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80", // Modern Chic
@@ -180,9 +180,9 @@ export const collections: Collection[] = [
     ],
     quote: "Elegance is the only beauty that never fades."
   },
- /* { 
+  /* { 
     id: 5, 
-    title: 'The Royal Affair', 
+    title: 'Delhi 2025', 
     slug: 'the-royal-affair', 
     description: 'A majestic collection inspired by the jewels of Indian royalty, featuring uncut diamonds and precious stones.', 
     imageUrl: PlaceHolderImages.find(p => p.id === "coll5")?.imageUrl ?? "", 
@@ -194,7 +194,7 @@ export const collections: Collection[] = [
     ],
     quote: "Jewelry is not just an accessory; it is the language of royalty."
   },
-  { 
+ { 
     id: 6, 
     title: 'Jaipur By Night', 
     slug: 'jaipur-by-night', 

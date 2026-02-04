@@ -255,11 +255,10 @@ export default function CollectionDetailPage() {
                         transition={{ duration: 0.8 }}
                         className="max-w-4xl text-center"
                     >
-                         <span className="block text-6xl text-primary/20 font-serif mb-4">“</span>
                         <p className="font-serif text-3xl md:text-5xl italic leading-tight text-foreground/80">
                             {(collection as any).quote}
                         </p>
-                         <span className="block text-6xl text-primary/20 font-serif mt-4 leading-[0]">”</span>
+
                     </motion.blockquote>
                 </section>
             )}
