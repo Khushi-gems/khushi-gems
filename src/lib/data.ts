@@ -128,41 +128,41 @@ export const collections: Collection[] = [
     id: 1, 
     title: 'Chandigarh', 
     slug: 'vasant', 
-    description: 'Inspired by the vibrant colors of spring, the Vasant collection features intricate floral motifs and lively gemstones.', 
-    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg', 
+    description: 'Our Chandigarh exhibition presents an elegant selection of handcrafted jewelry, designed to be treasured.', 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770200261/WhatsApp_Image_2026-02-04_at_2.34.05_PM_1_hzw0pm.jpg', 
     imageHint: 'spring collection',
     gallery: [
-      "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80", // Floral/Nature
-      "https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=800&q=80", // Colorful Jewelry
-      "https://images.unsplash.com/photo-1490750967868-58cb7506a90a?auto=format&fit=crop&w=800&q=80"  // Spring Bloom
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1770199816/chandigarh_2024_a1uxzm.mov",
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770200521/Screenshot_2026-02-04_155114_qwbfrx.png",
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770200261/WhatsApp_Image_2026-02-04_at_2.34.05_PM_1_hzw0pm.jpg"  
     ],
-    quote: "Spring unlocks the flowers to paint the laughing soil."
+    quote: "Timeless elegance, showcased in Chandigarh."
   },
   { 
     id: 2, 
     title: 'Dubai', 
     slug: 'noor', 
-    description: 'Noor, meaning light, is a collection of radiant and elegant pieces that illuminate your presence.', 
+    description: 'An exclusive jewelry exhibition in Dubai, presenting refined craftsmanship and timeless luxury', 
     imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg', 
     imageHint: 'light jewelry',
     gallery: [
-      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80", // Golden Light
-      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=800&q=80", // Minimal Gold
-      "https://images.unsplash.com/photo-1506634572416-48cdfe530110?auto=format&fit=crop&w=800&q=80"  // Radiance
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1770200624/dubai_2023_2_zcweym.mov", 
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=800&q=80", 
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1770200754/DUBAI_2023_tyci2k.mp4"  
     ],
-    quote: "Illuminate the darkness with your own radiant light."
+    quote: "Where craftsmanship meets global elegance."
   },
   { 
     id: 3, 
     title: 'Hyderabad', 
     slug: 'mehr', 
     description: 'A curated jewelry exhibition in Hyderabad, highlighting heritage craftsmanship and elegant design', 
-    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.03_PM_apktdx.jpg', 
+    imageUrl: 'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg', 
     imageHint: 'bridal jewelry',
     gallery: [
-      "https://res.cloudinary.com/dum5jqndc/video/upload/v1769761971/IMG_9198_mqmx9l.mov", // Indian Bride Detail
-      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.05_PM_ix3ve1.jpg", // Red Saree/Gold
-      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg"  // Traditional Necklace
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1769761971/IMG_9198_mqmx9l.mov", 
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.04_PM_e85hfj.jpg", 
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.03_PM_apktdx.jpg"  
     ],
     quote: "Timeless jewelry, unveiled in Hyderabad"
   },
@@ -170,31 +170,31 @@ export const collections: Collection[] = [
     id: 4, 
     title: 'Mumbai', 
     slug: 'amara', 
-    description: 'Timeless and eternal, the Amara collection features classic designs with a contemporary twist.', 
-    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770197879/WhatsApp_Image_2026-02-04_at_2.34.03_PM_apktdx.jpg', 
+    description: 'A curated jewelry exhibition in Mumbai, celebrating contemporary style and heritage craftsmanship.', 
+    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770200839/WhatsApp_Image_2026-02-04_at_2.34.04_PM_1_yj8q8t.jpg', 
     imageHint: 'eternal jewelry',
     gallery: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80", // Modern Chic
-      "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&w=800&q=80", // Diamond Detail
-      "https://images.unsplash.com/photo-1531995811006-35cb42e1a022?auto=format&fit=crop&w=800&q=80"  // Elegant Portrait
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1769761971/IMG_9198_mqmx9l.mov", 
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770201059/Screenshot_2026-02-04_160030_rik8ls.png",
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770200839/WhatsApp_Image_2026-02-04_at_2.34.04_PM_1_yj8q8t.jpg"  
     ],
-    quote: "Elegance is the only beauty that never fades."
+    quote: "Designed for modern elegance."
   },
-  /* { 
+   { 
     id: 5, 
-    title: 'Delhi 2025', 
+    title: 'Delhi', 
     slug: 'the-royal-affair', 
-    description: 'A majestic collection inspired by the jewels of Indian royalty, featuring uncut diamonds and precious stones.', 
-    imageUrl: PlaceHolderImages.find(p => p.id === "coll5")?.imageUrl ?? "", 
+    description: 'An exclusive jewelry exhibition in Delhi, showcasing classic artistry with refined sophistication.', 
+    imageUrl:'https://res.cloudinary.com/dum5jqndc/image/upload/v1770201191/WhatsApp_Image_2026-02-04_at_2.34.03_PM_1_tl2fzz.jpg',
     imageHint: 'royal jewelry',
     gallery: [
-      "https://images.unsplash.com/photo-1589156229687-496a31ad1d1f?auto=format&fit=crop&w=800&q=80", // Architecture
-      "https://images.unsplash.com/photo-1585503852504-2fa3ae765955?auto=format&fit=crop&w=800&q=80", // Heavy Polki
-      "https://images.unsplash.com/photo-1544256262-e22d95180630?auto=format&fit=crop&w=800&q=80"  // Luxury Texture
+      "https://res.cloudinary.com/dum5jqndc/video/upload/v1770201285/hyd_2025_hmfcnz.mov", // Architecture
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770200261/WhatsApp_Image_2026-02-04_at_2.34.05_PM_1_hzw0pm.jpg", // Heavy Polki
+      "https://res.cloudinary.com/dum5jqndc/image/upload/v1770201191/WhatsApp_Image_2026-02-04_at_2.34.03_PM_1_tl2fzz.jpg"  // Luxury Texture
     ],
-    quote: "Jewelry is not just an accessory; it is the language of royalty."
+    quote: "Heritage redefined with elegance."
   },
- { 
+ /*{ 
     id: 6, 
     title: 'Jaipur By Night', 
     slug: 'jaipur-by-night', 
