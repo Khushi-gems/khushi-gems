@@ -2,16 +2,17 @@ import type { Product, Review, MegaMenu, Category, Collection, BlogPost, Instagr
 import { PlaceHolderImages } from './placeholder-images';
 
 export const heroSlides = [
-  { id: 1, title: 'Timeless Engagement', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202981/Gemini_Generated_Image_l19y8l19y8l19y8l_1_h914df.png", alt: 'Diamond engagement rings', imageHint: 'engagement rings' },
-  { id: 2, title: 'Exquisite Collections', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202980/Gemini_Generated_Image_lqwdpflqwdpflqwd_1_sxssm1.png", alt: 'A stunning jewelry collection', imageHint: 'jewelry collection' },
-  { id: 3, title: 'High Jewellery', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202996/Gemini_Generated_Image_u49oftu49oftu49o_1_twwsrn.png", alt: 'Model wearing a high jewellery diamond collection', imageHint: 'diamond model' },
-  //{ id: 4, title: 'Artisan Craftsmanship', imageUrl: "https://i.ibb.co/bgrRCy38/imgi-31-premium-photo-1661645473770-90d750452fa0.png", alt: 'Luxury jewelry on display', imageHint: 'luxury jewelry' },
+  { id: 1, title: 'Timeless Engagement', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204521/IMG_0054_obex9g.jpg", alt: 'Diamond engagement rings', imageHint: 'engagement rings' },
+  { id: 2, title: 'Exquisite Collections', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204520/IMG_0056_azkwbt.jpg", alt: 'A stunning jewelry collection', imageHint: 'jewelry collection' },
+  { id: 3, title: 'High Jewellery', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204519/IMG_0055_jsx1vd.jpg", alt: 'Model wearing a high jewellery diamond collection', imageHint: 'diamond model' },
+  { id: 4, title: 'Artisan Craftsmanship', imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204519/IMG_0057_wcyyzc.jpg", alt: 'Luxury jewelry on display', imageHint: 'luxury jewelry' },
 ];
 
 export const goldBannerSlides = [
-  { id: 1, imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202989/Gemini_Generated_Image_33hoba33hoba33ho_1_iaolzt.png", alt: 'Model wearing gold jewelry', imageHint: 'gold jewelry model' },
-  { id: 2,  imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202981/Gemini_Generated_Image_nivmzanivmzanivm_1_uykn0h.png", alt: 'Close-up of a gold necklace', imageHint: 'gold necklace closeup' },
-  { id: 3, imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770202980/Gemini_Generated_Image_ololjvololjvolol_1_cps61m.png", alt: 'Stack of gold bangles', imageHint: 'gold bangles stack' },
+  { id: 1, imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204551/IMG_0050_xyzfzf.jpg", alt: 'Model wearing gold jewelry', imageHint: 'gold jewelry model' },
+  { id: 2,  imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204517/IMG_0051_m9qy2u.jpg", alt: 'Close-up of a gold necklace', imageHint: 'gold necklace closeup' },
+  { id: 3, imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204517/IMG_0049_utxkvl.jpg", alt: 'Stack of gold bangles', imageHint: 'gold bangles stack' },
+  { id: 4, imageUrl: "https://res.cloudinary.com/dum5jqndc/image/upload/v1770204518/IMG_0052_dijhsr.jpg", alt: 'Stack of gold bangles', imageHint: 'gold bangles stack' },
 ];
 
 
