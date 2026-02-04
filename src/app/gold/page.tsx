@@ -10,17 +10,17 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi, // Import CarouselApi type
 } from '@/components/ui/carousel';
-// CHANGED: Import AutoScroll
 import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"; // Import AnimatePresence
 import { ProductCard } from "@/components/product-card";
 import { useProducts } from "@/components/product-provider";
 import { LoadingLogo } from "@/components/loading-logo";
 import { Button } from "@/components/ui/button";
 import { Instagram, Loader2 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react"; // Import useState and useEffect
 
 // --- Enhanced Animation Constants ---
 const sectionAnimation = {
@@ -30,13 +30,59 @@ const sectionAnimation = {
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } 
 };
 
+// Animation variants copied from Home page
+const titleContainerAnimation = {
+  animate: {
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const characterAnimation = {
+  initial: { opacity: 0, y: 40, rotateX: 90 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 1,
+      ease: [0.2, 0.65, 0.3, 0.9],
+    },
+  },
+};
+
+// Titles for the Gold Slides (since they aren't in data.ts)
+const goldSlideTitles = [
+  "Royal Heritage",
+  "Intricate Artistry", 
+  "Timeless Luxury"
+];
+
 export default function GoldPage() {
   const { bestsellers, isLoading } = useProducts();
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const goldBestsellers = useMemo(() => 
     bestsellers.filter(p => p.material === 'Gold'), 
     [bestsellers]
   );
+
+  // Track slide changes for the text animation
+  useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+    const onSelect = () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap());
+    };
+    carouselApi.on("select", onSelect);
+    return () => {
+      carouselApi.off("select", onSelect);
+    };
+  }, [carouselApi]);
 
   if (isLoading) {
       return (
@@ -58,6 +104,7 @@ export default function GoldPage() {
         transition={{ duration: 1 }}
       >
         <Carousel
+          setApi={setCarouselApi} // Attach the API ref
           opts={{ loop: true, duration: 60 }}
           plugins={[
             Autoplay({
@@ -85,8 +132,41 @@ export default function GoldPage() {
             ))}
           </CarouselContent>
           
+          {/* Animated Overlay Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white pointer-events-none px-4">
-              {/* Optional Hero Text */}
+              <div className="mb-6 overflow-hidden">
+                <motion.div 
+                  initial={{ y: "100%" }} 
+                  animate={{ y: 0 }} 
+                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+                  className="inline-block px-3 py-1 border border-white/30 rounded-full bg-black/10 backdrop-blur-md"
+                >
+                  <span className="text-xs font-medium tracking-[0.2em] uppercase">Est. 2000 • Jaipur</span>
+                </motion.div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.h2
+                  key={currentSlide}
+                  variants={titleContainerAnimation}
+                  initial="initial"
+                  animate="animate"
+                  exit="initial"
+                  className="font-headline text-4xl sm:text-5xl md:text-7xl lg:text-8xl flex flex-wrap justify-center overflow-hidden py-4 leading-[1.1] md:leading-[0.9] tracking-tight"
+                  style={{ textShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
+                >
+                  {/* Safely handle titles if arrays don't match length */}
+                  {(goldSlideTitles[currentSlide] || "Gold Collection").split("").map((char, index) => (
+                    <motion.span
+                      key={`${char}-${index}`}
+                      variants={characterAnimation}
+                      className="inline-block"
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </motion.span>
+                  ))}
+                </motion.h2>
+              </AnimatePresence>
           </div>
 
           <div className="absolute bottom-20 right-90 hidden md:flex gap-3">
