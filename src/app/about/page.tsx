@@ -84,7 +84,7 @@ export default function AboutPage() {
 
   const achievements = [
     { number: "25+", label: "Years of Excellence" },
-    { number: "10+", label: "Countries Served" },
+    { number: "10+", label: "City Served" },
     { number: "5000+", label: "Happy Clients" },
     { number: "100%", label: "Handcrafted" },
   ];
