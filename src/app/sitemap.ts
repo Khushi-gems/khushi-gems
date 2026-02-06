@@ -12,7 +12,7 @@ const slugify = (text: string) =>
     .replace(/[^\w-]+/g, '');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1️⃣ Static pages
+  // 1. Static pages - THESE ARE YOUR SITELINK CANDIDATES
   const staticRoutes = [
     '',
     '/about',
@@ -24,37 +24,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : 0.7,
+    // ACTION: Increased priority to 0.9 for main pages (except home which is 1)
+    // This tells Google: "These are the most important sections of my site."
+    priority: route === '' ? 1 : 0.9, 
   }));
 
-  // 2️⃣ Category pages
+  // 2. Category pages - ALSO SITELINK CANDIDATES
   const categoryRoutes = silverCategories.map((cat) => ({
     url: `${baseUrl}/category/${slugify(cat.name)}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    changeFrequency: 'weekly' as const,
+    // Keep high priority for categories
     priority: 0.8,
   }));
 
-  // 3️⃣ Product pages (FIXED)
+  // 3. Product pages
   const products = await getAllProductsForSEO();
   
-  // Create a Set to track URLs we've already added (prevents duplicates)
   const addedUrls = new Set<string>();
   const productRoutes: MetadataRoute.Sitemap = [];
 
   products.forEach((product) => {
-    // Priority: 1. DB Slug, 2. Slugified Name, 3. ID (last resort)
     const finalSlug = product.slug || slugify(product.name) || product.id;
     const url = `${baseUrl}/products/${finalSlug}`;
 
-    // Only add if we haven't seen this URL yet
     if (!addedUrls.has(url)) {
       addedUrls.add(url);
       productRoutes.push({
         url,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
-        priority: 0.9,
+        // ACTION: Lowered priority to 0.6
+        // This prevents products from "drowning out" your main pages.
+        priority: 0.6, 
       });
     }
   });
