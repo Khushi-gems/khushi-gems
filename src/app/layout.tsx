@@ -95,7 +95,11 @@ export default function RootLayout({
         "addressLocality": "Jaipur",
         "addressRegion": "Rajasthan",
         "postalCode": "302003",
-        "addressCountry": "IN"
+        "addressCountry": "IN",
+        "priceRange": "₹500 - ₹25,00,000",
+        "currenciesAccepted": "INR, USD, EUR",
+        "paymentAccepted": "Credit Card, UPI, Bank Transfer",
+        "hasMap": "https://maps.app.goo.gl/Z3n1Dwg4TjQJqx8BA",
       },
 
       "geo": {
