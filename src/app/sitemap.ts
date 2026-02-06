@@ -12,7 +12,7 @@ const slugify = (text: string) =>
     .replace(/[^\w-]+/g, '');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1️⃣ Static pages (ONLY real pages)
+  // 1️⃣ Static pages
   const staticRoutes = [
     '',
     '/about',
@@ -35,15 +35,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 3️⃣ Product pages
+  // 3️⃣ Product pages (FIXED)
   const products = await getAllProductsForSEO();
+  
+  // Create a Set to track URLs we've already added (prevents duplicates)
+  const addedUrls = new Set<string>();
+  const productRoutes: MetadataRoute.Sitemap = [];
 
-  const productRoutes = products.map((product) => ({
-    url: `${baseUrl}/products/${product.slug ?? slugify(product.name)}`,
-    lastModified: new Date(), 
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }));
+  products.forEach((product) => {
+    // Priority: 1. DB Slug, 2. Slugified Name, 3. ID (last resort)
+    const finalSlug = product.slug || slugify(product.name) || product.id;
+    const url = `${baseUrl}/products/${finalSlug}`;
+
+    // Only add if we haven't seen this URL yet
+    if (!addedUrls.has(url)) {
+      addedUrls.add(url);
+      productRoutes.push({
+        url,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+      });
+    }
+  });
 
   return [...staticRoutes, ...categoryRoutes, ...productRoutes];
 }
